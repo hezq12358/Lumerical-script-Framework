@@ -1,0 +1,20 @@
+# FDTD 的轮廓监视器，取相对坐标
+temp = 11;		# 默认取11个频点
+select(solver);
+	x = get('x min');	xB = get('x max');
+	y = get('y'); 		yB = get('y span');
+if(add_opt==1)
+	{
+select('top-down field');
+	}
+else
+	{
+addprofile;	
+	}
+	set('name','top-down field');
+	set('monitor type','2D Z-normal');# 俯视图
+	set('x min', x);	set('x max' , xB);
+	set('y',y );		set('y span',yB);
+	set('override global monitor settings',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',temp);

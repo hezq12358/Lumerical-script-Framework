@@ -1,0 +1,80 @@
+# 导入外部的 .gds 
+if (clad_opt == 1)
+	{# 有包层
+	zmax = clad;
+	}
+else
+	{# 无包层
+	zmax = -thick/2;
+	}
+	
+	
+# filename = 'E:\Codes\matlab\版图设计\Instance\ANT\WDM-PDM-MDM\BTDC\BTDC-1.gds'; 
+# cellname = 'Nick_Hezq0810_v1';     # 弯曲定向耦合器
+
+filename = 'E:\Codes\matlab\版图设计\park\呆毛\Cells\to be simulated\Arch  800-50-2-0p8.gds'; 
+cellname = 'Nick_Hezq0810_v1';    # 双模螺旋波导
+
+
+ltype = '1:0';   
+# filename = 'E:\Codes\Lumerical\Components Library\a ADC\domo\GDS\Cells\TM0-TM1.gds';  	
+# cellname = 'Nick_Hezq_bragg_v1';
+# 导入之后 lumericalSB 把它称作
+GDSname = '::model::GDS_LAYER_' + ltype;	
+minvxWAFER = 1e9;	maxvxWAFER = -1e9;
+minvyWAFER = 1e9;	maxvyWAFER = -1e9;  # design extent
+
+
+# 波导导入  .gds
+n = gdsimport( filename, cellname, ltype, material_Si , -thick/2, thick/2 );
+# n = gdsimport("filename", "cellname", layer, "material", zmin, zmax);
+if ( n==0 ) 
+	{ 
+	delete; 
+	} 
+else 
+	{
+	groupscope( GDSname );
+	# set("script","");
+	selectall;
+		set('material', material_Si);
+		set('z',0);		set('z span',thick); 	 
+		selectpartial("poly");
+	minvx = 1e9; 		maxvx = -1e9; 
+	minvy = 1e9;		maxvy = -1e9;
+	for ( k = 1:getnumber ) 
+		{	# 扫描 多边形数
+		v = get("vertices",k);
+		minvx = min ( [ minvx,min(v(:,1)) ] );
+		maxvx = max ( [ maxvx,max(v(:,1)) ] );
+        minvy = min ( [ minvy,min(v(:,2)) ] );
+		maxvy = max ( [ maxvy,max(v(:,2)) ] );
+		}
+	minvxWAFER = min ( [minvx, minvxWAFER] );
+	minvyWAFER = min ( [minvy, minvyWAFER] );
+	maxvxWAFER = max ( [maxvx, maxvxWAFER] );
+	maxvyWAFER = max ( [maxvy, maxvyWAFER] );
+	groupscope("::model");
+	}
+
+
+# 仿真区域Y边缘参数
+addrect;   # 衬底(埋氧层)   
+	xmin = minvxWAFER-lengthE;
+	xmax = maxvxWAFER+lengthE;
+	ymin = minvyWAFER-(TMD)*marg;
+	ymax = maxvyWAFER+(TMD)*marg;
+	set('override mesh order from material database',1);
+	set('mesh order',3);
+	set('x min',xmin);	set('x max',xmax);
+	set('y min',ymin);  	set('y max',ymax);
+	# set('y min',ymin-marg); set('y max',ymax);    #  仅用于BTDC
+	set('z min',-thickB-thick/2); 	set('z max',zmax);
+	set('material',material_BOX);
+	set('name','oxide');
+
+	
+# feval('E:\Codes\Lumerical\Components Library\BTDC\btdcPort.lsf');
+
+feval('E:\Codes\Lumerical\Components Library\multimode spiral WGs\MMspirPort.lsf');
+

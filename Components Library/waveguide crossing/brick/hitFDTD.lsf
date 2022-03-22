@@ -1,0 +1,19 @@
+
+
+# 提取 FDTD 数据
+
+
+
+laser = transmission('laser');
+po3 = transmission('cross')/laser;
+po2 = transmission('bar')/laser;
+
+
+
+
+
+
+# 在循环时，请注释掉
+	waveA = linspace(waveMIN,waveMAX,Dwave);
+plot(waveA*G,10*log10(abs(po3)),10*log10(po2));
+matlabsave(pathB+demon+pfolderExport+'\' + file );

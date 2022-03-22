@@ -1,0 +1,3 @@
+# 端口  ---- only one
+port1X = ExcitP;
+port1Y = ExcitQ;

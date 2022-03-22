@@ -1,0 +1,19 @@
+# 直接定义网格尺寸
+	wovX = 2;						    # 每个      特征尺寸X      wovX    等分 
+	wovGap = 4;
+	wovZ = 4;							# 每个      特征尺寸Z      wovZ    等分 
+mesh_override_dx = pitchX / wovX;
+gapDY = gap/wovGap;
+mesh_override_dz = pitchZ / wovZ;
+
+	NT2 = 'gap';
+	len = 28.5e-6;
+	widthMM = 1240e-9;
+addmesh; 
+	set('x min', ExcitP );set('x max', ExcitP + len );
+	set('y min', ExcitQ + widthMM/2 );set('y max', ExcitQ+widthMM/2 + gap ); 		
+	set('z',0);set('z span',pitchZ + 2*mesh_override_dz);
+	set('dx',mesh_override_dx); 
+	set('dy',gapDY);
+	set('dz',mesh_override_dz);
+	set("name",NT2);

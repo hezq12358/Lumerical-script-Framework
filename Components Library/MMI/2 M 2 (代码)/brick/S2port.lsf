@@ -1,0 +1,34 @@
+# 从模式端口提取  S参数 
+Port1 = getresult('expansion','expansion for Port1expa');
+po1 = Port1.T_net;
+if ( PortS == 3 )
+{
+Port3 = getresult('expansion','expansion for Port3expa');
+	if ( loop_opt == 0 )
+	{
+		po3 = Port3.T_net;
+		waveA = linspace(waveMIN,waveMAX,Dwave);
+	plot(waveA*G,10*log10(po3));
+	}
+}
+else if ( PortS == 2 )
+{
+Port2 = getresult('expansion','expansion for Port2expa');
+	if ( loop_opt == 0 )
+	{
+		po2 = Port2.T_net;
+		waveA = linspace(waveMIN,waveMAX,Dwave);
+	plot(waveA*G,10*log10(po2));
+	}
+}
+
+
+# plot(linspace(waveMIN,waveMAX,Dwave)*G,10*log10(po1));
+    
+
+
+
+
+
+
+

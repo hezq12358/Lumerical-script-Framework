@@ -1,0 +1,25 @@
+#  再次仿真   波导  截面  模式
+clear;  closeall;
+# 必须打开一个已经建模好的.lms文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+home = filedirectory(currentscriptname);
+pathB = 'E:\Codes\Lumerical\Components Library\waveguide';
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini\' + 'wgQini');
+feval(pathB+'\ini\' + 'wgQrep');
+add_opt = 1;
+# 参数修正
+Lian = 1;
+width = 800e-9; 
+feval(pathB+'\' + 'wgModel');
+
+file = DEV + ' width ' + num2str(width*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'wgID');
+SB = 2;		# 只获取前两个模式的数据  TE0 , TE1
+cd(pathB+demon+pfolderG );  
+	n = findmodes;	   # 相当于run
+
+
+	# feval(pathB+'\brick'+'\' + 'hit' );
+# matlabsave(pathB+demon+pfolderExportfile+'\' + file,width,waCve,neff,TE_pol,y,z,modalx,modaly,modalz,meshsize);		# 将工作区的变量保存到.mat文件
+

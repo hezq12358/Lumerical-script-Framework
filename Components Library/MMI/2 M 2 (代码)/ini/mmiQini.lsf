@@ -1,0 +1,65 @@
+# 单位常量
+K = 1e3;
+M = 1e6;
+G = 1e9;
+MM = M*M;
+# 材料参数
+material_BOX = 'SiO2 (Glass) - Const';
+material_Si = 'Si (Silicon) - Dispersive & Lossless';
+Rec = 'Optical ports';
+# DEV参数
+DEV = 'MMI'; 
+thick = 220e-9;          # 波导厚度
+thickB = 3e-6;           # 衬底厚度
+clad = 2e-6;		     # 包层厚度
+ExcitP = 0;				 # 器件初始  X  坐标
+ExcitQ = 0;				 # 器件初始  Y  坐标
+width = 500e-9;          # 波导宽度
+JR = 8.5e-6;
+widthTAP = width;	     # taper 的输出波导宽度
+widthMM = 6e-9;
+gap = widthMM/3;	     # 两端口位于 3 等分点处，3 dB耦合器
+lengthMM = 41.5e-6;
+Smode = 1;    	# 1   TE
+				# 2	TM
+lengthE = 3e-6;          # 器件沿长度方向的加长
+widthE = 5e-6;			 # 衬底沿宽度方向的加宽
+# 求解器参数
+waveMIN = 1400e-9;
+waveMAX = 1700e-9;
+waCve = 1550e-9;
+DwaveU = 1;				 # 每单位波长采样点数
+lengthMMMIN = 1e-6;	  		   
+lengthMMMAX = 100e-6;    
+Dlength = 100;            
+donor = 0.5;			# 光源位置参数	，  用于 FDTD
+sensor = 1/2*(1+donor); # 监视器位置参数，用于FDTD
+nail = 10e-9;		# EME 的指甲
+TMD = 3;
+marg = 1e-6; # 仿真区域YZ边缘参数，大于最大的仿真波长
+margSlover = 2e-6;	# 光源，求解器位置参数，一般不要动
+Mesh_level = 2;			# 网格等级
+sim_time = 18000e-15;	# 仿真时间
+dt = 0.99;				# 时间步长稳定因子，默认为0.99，若发散，将其改小
+# 选项
+clad_opt = 1;       # 是否加clad
+pt_opt = 1;			# 弃用--If true , 设置功率，时间监视器 ; 否则 ， 设置端口   
+profile_opt = 0;	# 是否计算电场轮廓
+GD_opt = 0;         # 是否计算群时延  ，  用于  EME   求解器  
+length_opt = 1;		# 是否扫描长度      ，  用于  EME   求解器
+wave_opt = 0;		# 是否扫描波长      ，  用于  EME   求解器
+solver_opt = 1;		# 采用何种求解器
+					# 1 = var-FDTD
+					# 2 = EME
+					# 3 = 3D-FDTD
+	Sp_opt = 0;		# 是否提取  mode expansion 监视器  S参数
+add_opt = 0;		# 用于参数扫描
+					# 0 = add(object)
+					# 1 = select(object)
+gds_opt = 0;
+	whpo = 1;       # which ports
+					# 2 :  从 2端口注入
+					# 1 :  从 1端口注入
+	PortS = 3;		# 端口数 ， 用于  varFDTD/pt_set.lsf  ,  brick/hitFDTD.lsf  ,  brick/S2port.lsf
+# 高阶参数 (根据初始参数自动生成)    
+feval(pathB+'\ini'+'\' + 'mmiQSini' );

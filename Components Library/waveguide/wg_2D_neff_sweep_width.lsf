@@ -1,0 +1,39 @@
+clear;
+closeall;
+# 对波导，在单波长下，仿真neff随宽度变化
+home = filedirectory(currentscriptname);
+ini__;
+wgQini;
+wgQrep;
+newproject;    #新建一个仿真工程，GUI中的原有工程不会自动保存!
+redrawoff;     #禁止由于command导致的CAD的自动更新(能提升脚本运行速度!)
+addpath(mater);		materialsQini;		
+wg_2DLV;     
+FDE_set;
+
+# 定义扫描参数
+sop = 200;
+fin = 1800;
+dw =  5;
+widthL=[sop:dw:fin]/G; 
+file = DEV + 'width ' + num2str(widthL(1)*G) + ' ~ ' + num2str(widthL(end)*G) + ' nm';
+neff = matrix ( length(widthL), modes );
+TE_pol = matrix ( length(widthL), modes );
+# 参数扫描
+cd(home + pfolder + pfolderP);
+	save(file);			# 保存器件的原始建模文件
+cd(home + pfolder + pfolderG);
+for(k=1:length(widthL))  {
+	switchtolayout;
+	setnamed("waveguide","y span", widthL(k));
+	n = findmodes;	          # 利用特征模求解器求解模式								
+	for (m=1:modes) 
+		{   # extract mode data     
+		neff (k,m) = abs( getdata( "FDE::data::mode"+num2str(m) , "neff" ) );
+		TE_pol(k,m) = getdata( "FDE::data::mode"+num2str(m) , "TE polarization fraction" );
+		}
+}
+
+plot (widthL*G, neff);
+cd(home + pfolder + pfolderExport);
+	matlabsave(file);		# 将工作区的变量保存到.mat文件

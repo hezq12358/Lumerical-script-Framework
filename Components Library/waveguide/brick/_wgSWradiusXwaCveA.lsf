@@ -1,0 +1,12 @@
+for (k = 1:rowH)
+	{
+	plot(radiusL*M,neffM(k,:)-neffUB(k),neffM(k+rowH,:)-neffUB(k+rowH));
+	plot(radiusL*M,10*log10(po1(k,:)),10*log10(po2(k,:)));     # power coupling
+	plot(radiusL*M,10*log10(coin1(k,:)),10*log10(coin2(k,:))); # overlap integral	
+	}
+# for (k = rowH+1:row)
+	# {
+	# plot(radiusL*M,10*log10(po1(k,:)),10*log10(po2(k,:)));     # power coupling
+	# plot(radiusL*M,10*log10(coin1(k,:)),10*log10(coin2(k,:))); # overlap integral	
+	# }		
+matlabsave(pathB+demon+pfolderExport+'\' + file );

@@ -1,0 +1,20 @@
+# Lumerical SB 仿真 2 * 2 MMI
+clear;closeall;
+###############################################
+home = filedirectory(currentscriptname);
+pathB = 'E:\Codes\Lumerical\Components Library\MMI\2 M 2';
+feval(pathB+'\' + 'ini__' );
+feval(pathB+'\ini'+'\' + 'mmiQini' );
+feval(pathB+'\ini'+'\' + 'mmiQrep' );
+newproject;
+add_opt = 0;
+loop_opt = 0;
+feval(pathB+'\' + 'mmiModel' );
+			
+file = 'Arch  800-50-2-0p8';
+# feval(pathB+'\ID'+'\' + 'mmiID');
+save(pathB+demon+pfolderP+'\' + file );	# 保存器件的原始建模文件	
+#################################
+
+# 执行仿真			
+#feval(pathB+'\brick'+'\' + 'mmiRun');

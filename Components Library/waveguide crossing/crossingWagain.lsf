@@ -1,0 +1,61 @@
+# Lumerical仿真 ADC
+# clear;      closeall;
+# 必须打开一个已经建模好的.lms文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+home = filedirectory(currentscriptname);
+pathB = 'E:\Codes\Lumerical\Components Library\a ADC\domo';
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini\' + 'adcQini');
+feval(pathB+'\ini\' + 'adcQrep');
+gds_opt = 0;
+add_opt = 1;
+solver_opt = 2;
+width = 500e-9;
+widthTAP = 500e-9;
+gap = 200e-9;
+widthH = 1240e-9;
+widthC = 1240e-9;
+feval(pathB+'\' + 'adcModel');
+			
+file = DEV + ' ' + num2str(widthH*G) + ' gap ' + num2str(gap*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'adcID' );
+# save(pathB+demon+pfolderP+'\' + file );	# 保存器件的原始建模文件
+
+## #########################
+## 执行仿真			
+#cd(pathB + demon + pfolderG);
+    #run;				# 仿真，并保存项目文件到当前文件夹
+#if( solver_opt == 2 )
+	#{
+	#if ( wave_opt>0 )
+		#{# 是否扫描波长，2020新功能 ，因为忽略了波导色散，仿真光栅不准
+		 ## 但是仿真  长周期光栅    ，  只能用 EME 波长扫描。  varFDTD   是狗屎
+		#setemeanalysis("wavelength sweep",1);
+		#setemeanalysis("start wavelength",waveMIN);
+		#setemeanalysis("stop wavelength",waveMAX);
+		#setemeanalysis("number of wavelength points",Dwave);
+		#setemeanalysis("calculate group delays",GD_opt);
+		#emesweep("wavelength sweep");
+		#}
+	#else 
+	#if (length_opt>0)
+		#{# 长度扫描
+		#setemeanalysis('parameter','group span 2');
+		#emesweep('propagation sweep');
+		#}
+	#}
+     ###后处理
+    #feval(pathB+lowerical+'\'+	'hitEME'	);			# 提取监视器S参数
+    #matlabsave(pathB+demon+pfolderExport+'\' + file );
+	#if (wave_opt>0)
+	#{
+	#plot(waveA*G,10*log10(po21),10*log10(po11));	
+	#}
+	#else
+	#{
+	#plot(lengthCPA*M,10*log10(po21),10*log10(po11));	
+	#}
+  
+	
+	
+	

@@ -1,0 +1,24 @@
+# 定向耦合器
+# varFDTD
+if (add_opt==0)
+	{
+	addfdtd;
+		set('dimension','3D');
+	}
+else
+	{
+select(solver);
+	}
+set('simulation time',sim_time);
+set('dt stability factor',dt);
+
+
+set('x min', port1X-margSlover );    set('x max' , port2X+margSlover );
+set('y', ExcitQ );   set('y span' , boundaryY );
+set('z',0);							set('z span',boundaryZ);
+# set('min mesh step',100e-9);
+set('mesh accuracy',Mesh_level);# 网格精度，一般设为 2
+set('x min bc','PML');	set('x max bc','PML');
+set('y min bc','PML');	set('y max bc','PML');
+set('z min bc','PML');	set('z max bc','PML');
+

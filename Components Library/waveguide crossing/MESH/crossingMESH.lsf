@@ -1,0 +1,44 @@
+if (gds_opt==1)
+	{
+	feval(pathB+'\MESH'+'\' + 'meshgap' );
+	}
+else
+{
+# 网格设置：不同的器件设置不同密度的网格，网格尺寸必须是器件最小特征尺寸的整数分之一
+# Lumerical默认网格覆盖，所以，建议先绘制全局的粗网格，再利用独立脚本绘制局部的细网格
+NT1 = 'waveguide';	
+# 按照  特征尺寸  定义  网格尺寸				
+wovX = 5;						    # 每个      特征尺寸X      wovX    等分 
+wovY = 25;							# 每个      特征尺寸Y      wovY    等分 
+wovZ = 22;							# 每个      特征尺寸Z      wovZ    等分 
+if ( solver_opt!=2 )
+	{# FDTD  仿真
+	wovX = 5;
+	wovY = 10;
+	wovZ = 4;
+	}
+mesh_override_dx = pitchX / wovX;   # X方向，长度方向
+mesh_override_dy = pitchY / wovY;	# Y方向，截面水平方向
+mesh_override_dz = pitchZ / wovZ;	# Z方向，截面垂直方向
+if (add_opt==0)
+{
+addmesh; 	# 根据结构设置网格
+	set('based on a structure', 1);
+	set('structure', DEV);
+	set('dx',mesh_override_dx); 
+	set('dy',mesh_override_dy);
+	set('dz',mesh_override_dz);	
+	set("name",NT1);
+}
+else
+{
+# 方式1：根据结构设置网格
+select(NT1);
+	set('based on a structure', 1);
+	set('structure', DEV);
+	set('dx',mesh_override_dx); 
+	set('dy',mesh_override_dy);
+	set('dz',mesh_override_dz);
+}
+}
+

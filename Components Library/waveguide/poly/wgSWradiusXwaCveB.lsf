@@ -1,0 +1,73 @@
+#  骚喵弯曲半径，计算 BWG1-BWG2's Excitation Ratio
+#  waCveL = [1510:20:1590]/G; 
+clear;  # closeall;
+# 必须打开一个已经建模好的.lms文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+    homeF = currentscriptname;
+home = filedirectory(homeF);
+pathB = 'E:\Codes\Lumerical\Components Library\waveguide';
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini\' + 'wgQini');
+feval(pathB+'\ini\' + 'wgQrep');
+# 骚喵参数 
+	dw = 1;
+#waCveL = [1510:20:1590]/G;
+#R0 = 200/M; 
+#radiusL = transpose(  R0/2 : dw/M : R0  );
+waCveL = 1550/G;
+R0 = 80/M;
+radiusL = transpose( -R0 );
+row = 2*size(waCveL,1);   rowH = floor(row/2);
+col = size(radiusL,2);
+neffR0 = zeros(row,1);
+neffM = zeros(row,col);
+coin1 = zeros(row,col);  # 模场重叠
+po1 = zeros(row,col);    # 功率耦合
+coin2 = zeros(row,col);  # 模场重叠
+po2 = zeros(row,col);    # 功率耦合
+
+file = DEV+' BWG-BWG2 '+num2str(waCveL(1)*G)+'~'+num2str(waCveL(end)*G)+'-'+num2str(width*G) + ' nm' + ' ' + num2str(floor(radiusL(1)*M));
+feval(pathB+'\ID'+'\' + 'wgID' );
+cd(pathB+demon + pfolderG );
+
+	add_opt = 1;
+	BWG_opt = 1;
+for (k = 1:size(waCveL,1))
+	{# 参数修正
+		waCve = waCveL(k);
+		width = 800e-9;
+		radius = R0;
+	feval(pathB+'\' + 'wgModel');
+		n = findmodes;	   
+	copydcard(solver+'::data::mode'+num2str(1),'E0');
+	copydcard(solver+'::data::mode'+num2str(2),'E1');
+	neffR0 (k,1) = abs( getdata( 'E0' , "neff" ) );
+	neffR0 (k+rowH,1) = abs( getdata( 'E1' , "neff" ) );
+
+	for (kk = 1:length(radiusL))
+		{# 参数修正
+			radius = radiusL(kk);
+		feval(pathB+'\' + 'wgModel');
+		n = findmodes;
+		neffM (k,kk) = abs( getdata( "FDE::data::mode"+num2str(1) , "neff" ) );
+		neffM (k+rowH,kk) = abs( getdata( "FDE::data::mode"+num2str(2) , "neff" ) );
+		# TE0 injecting 
+		olp = overlap('E0',solver+'::data::mode'+num2str(1));
+			coin1(k,kk) = olp(1);
+			po1(k,kk) = olp(2);
+		olp = overlap('E0',solver+'::data::mode'+num2str(2));
+			coin2(k,kk) = olp(1);
+			po2(k,kk) = olp(2);
+		# TE1 injecting	
+		olp = overlap('E1',solver+'::data::mode'+num2str(1));
+			coin1(k+rowH,kk) = olp(1);
+			po1(k+rowH,kk) = olp(2);
+		olp = overlap('E1',solver+'::data::mode'+num2str(2));
+			coin2(k+rowH,kk) = olp(1);
+			po2(k+rowH,kk) = olp(2);
+		}
+	cleardcard('E0');
+	cleardcard('E1');
+	}		
+    fxxk = substring(homeF,length(home)+2,length(homeF)-length(home)-1);	
+feval(pathB+'\brick'+'\' + '_'+fxxk );

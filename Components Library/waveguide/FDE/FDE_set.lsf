@@ -1,0 +1,27 @@
+# 特征模求解器设置
+solver = 'FDE';
+if (add_opt==0)
+{
+addfde; 
+}
+else
+{
+select(solver);
+}
+	set("solver type", "2D X normal");
+	set("x", port1X );  
+	set("y", port1Y );  set("y span", boundaryY );
+	set("z", 0 );   	set("z span", boundaryZ );   
+	set('define y mesh by' , 'maximum mesh step');
+	set('define z mesh by' , 'maximum mesh step');
+	set("dy", meshsize);    set("dz", meshsize);
+	set("wavelength", waCve);
+	set("number of trial modes" , modes);
+	if (BWG_opt==1)
+	{
+	set('bent waveguide', BWG_opt );
+	set('bend radius', radius );
+	}
+# 特征模求解器求解	
+# findmodes;
+	# selectmodes(sc);

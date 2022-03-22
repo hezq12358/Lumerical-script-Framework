@@ -1,0 +1,40 @@
+clear; cleardcard;
+waveguide_width = linspace(3e-6,0.5e-6,21);
+
+neff1 = matrix(length(waveguide_width));
+neff2 = matrix(length(waveguide_width));
+neff3 = matrix(length(waveguide_width));
+neff4 = matrix(length(waveguide_width));
+neff5 = matrix(length(waveguide_width));
+
+slab_neff = 2.754047; # from a reference simulation without the ridge
+for (i=1:length(waveguide_width)){
+  # set geometry
+  switchtolayout;
+  setnamed('ridge','y span',waveguide_width(i));
+  findmodes;
+
+  # store top 5 modes for largest waveguide width
+  # since the mode order may change for different width 
+  if (i==1){
+    copydcard('mode1','TE0');  
+    copydcard('mode2','TE1');  
+    copydcard('mode3','TE2');  
+    copydcard('mode4','TE3');  
+    copydcard('mode5','TM0');  
+  }
+  
+  # store neff for modes at other waveguide width
+  neff1(i) = real(getdata(bestoverlap('TE0'),'neff'))-slab_neff;
+  neff2(i) = real(getdata(bestoverlap('TE1'),'neff'))-slab_neff;
+  neff3(i) = real(getdata(bestoverlap('TE2'),'neff'))-slab_neff;
+  neff4(i) = real(getdata(bestoverlap('TE3'),'neff'))-slab_neff;
+  neff5(i) = real(getdata(bestoverlap('TM0'),'neff'))-slab_neff;
+  if (neff3(i) == neff1(i)){neff3(i) = 0;}
+  if (neff4(i) == neff2(i)){neff4(i) = 0;}
+}
+
+# plot in normalized units
+plot(waveguide_width*1e6,neff1,neff2,neff3,neff4,neff5,'waveguide width (um)','delta_neff');
+setplot('y min',0); setplot('y max',max(neff1));
+legend('TE0','TE1','TE2','TE3','TM0');

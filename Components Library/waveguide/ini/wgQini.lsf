@@ -1,0 +1,44 @@
+# 单位常量
+K = 1e3;
+M = 1e6;
+G = 1e9;
+MM = M*M;
+# 定义材料
+material_Clad = "SiO2 (Glass) - Const";					# 选取materials中的材料
+material_BOX  = "SiO2 (Glass) - Const";					# 选取materials中的材料
+material_Si   = "Si (Silicon) - Dispersive & Lossless";	# 选取materials中的材料
+# 定义DEV参数
+DEV = 'WG';
+thickB  = 3e-6;	    # 埋氧层厚度
+clad = 2e-6;        # cladding厚度
+ExcitP = 0;
+ExcitQ = 0;
+thick   = 220e-9;	# 波导厚度
+width = 500e-9;     # 波导宽度
+thick_Slab = 90e-9; # 平板厚度 ， @ slab_opt == 1
+lengthE = 3e-6;     # 器件两端的直波导长度
+widthE = 5e-6;	    # 衬底沿宽度方向的加宽
+# 定义仿真参数
+TMD = 3;
+marg = 1e-6;	 	# 仿真区域YZ边缘参数，大于最大的仿真波长	        		
+waveMIN = 1400e-9;
+waveMAX = 1700e-9;
+waCve = 1550e-9;
+DwaveU = 1;				# 每单位波长采样点数
+meshsize = 20e-9;       # 网格尺寸
+modes    = 4;           # 求解模式数
+# 选项
+BWG_opt = 0;
+	radius = 10e-6;     # 弯曲半径
+slab_opt = 0;			# IsSlab       0 -- 条形波导
+						#		   1 -- 脊形波导
+clad_opt = 1;
+solver_opt = 0;		# 采用何种求解器
+					# 0 = FDE
+					# 1 = var-FDTD
+					# 2 = EME
+					# 3 = 3D-FDTD
+add_opt = 0;
+gds_opt = 0;
+# 高阶参数 (根据初始参数自动生成)  
+feval(pathB+'\ini'+'\' +  'wgQSini');

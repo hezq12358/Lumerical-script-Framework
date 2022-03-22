@@ -1,0 +1,12 @@
+# 以后封装成函数
+# Lumerical 臭SB
+mkdir = 'mkdir ';
+folder = substring( lumericalSB , 1 , length(lumericalSB)-2 ) + '"';
+temp = 'if not exist ' + lumericalSB + ' ' + mkdir + folder;  
+system(temp);           
+
+
+
+
+
+ 

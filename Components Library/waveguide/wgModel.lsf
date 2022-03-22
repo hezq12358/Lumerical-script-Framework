@@ -1,0 +1,16 @@
+if ( add_opt == 0 )
+		{# 初次建模
+	feval(pathB + '\ini' + '\' + 'wgQini');
+	feval(pathB + '\ini' + '\' + 'wgQrep');			
+	feval( mater + '\' + 'materialsQini' );	
+	feval(pathB + '\LV' + '\' + 'wgLV'); 		
+	feval(pathB + '\FDE' + '\' + 'FDE_set');
+	# feval(pathB + '\MESH' + '\' + 'GratingMESH'); 		
+		}
+	else
+		{# 参数扫描
+	feval(pathB+'\ini'+'\' + 'wgQSini');		
+	switchtolayout; 
+	feval(pathB + '\LV' + '\' + 'wgLV'); 			feval(pathB + '\FDE' + '\' + 'FDE_set');
+	# feval(pathB+'\MESH'+'\' + 'GratingMESH'); 	
+		}

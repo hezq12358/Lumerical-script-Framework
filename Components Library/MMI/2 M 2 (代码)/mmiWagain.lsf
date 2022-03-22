@@ -1,0 +1,24 @@
+# Lumerical仿真 2*2 MMI
+# clear;      closeall;
+# 必须打开一个已经建模好的.lms文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+home = filedirectory(currentscriptname);
+pathB = 'E:\Codes\Lumerical\Components Library\MMI\2 M 2';				# 导入核心库
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini\' + 'mmiQini');
+feval(pathB+'\ini\' + 'mmiQrep');
+gds_opt = 0;
+add_opt = 1;
+loop_opt == 0;
+feval(pathB+'\' + 'mmiModel');			
+
+file = DEV + ' ' + num2str(widthMM*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'mmiID' );
+## #########################
+			
+# 执行仿真			
+feval(pathB+'\brick'+'\' + 'mmiRun');
+  
+	
+	
+	

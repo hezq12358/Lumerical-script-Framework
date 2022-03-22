@@ -1,0 +1,9 @@
+# 端口
+port1X = ExcitP;					      # 输入端
+port1Y = ExcitQ;
+port2X = ExcitP+lengthDEV;				  # 直通端
+port2Y = port1Y;
+port3X = (port1X+port2X)/2;		      # 交叉端
+port3Y = port1Y-(port3X-port1X);
+port4X = port3X;				      # 交叉端
+port4Y = port1Y+(port3X-port1X);

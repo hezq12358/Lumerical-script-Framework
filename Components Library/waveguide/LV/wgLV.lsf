@@ -1,0 +1,84 @@
+redrawoff;						# 禁止自动重绘
+if (clad_opt == 1)
+	{
+	zmax = clad;
+	}
+else
+	{
+	zmax = -thick/2;
+	} 
+if (add_opt==0)
+{# 初次建模
+addrect; # 绘制埋氧层
+	set("name", "oxide");
+	set("material", material_BOX);
+	set("x min", xmin);  set("x max", xmax);
+	set("y", port1Y);    set("y span", widthB);
+	set("z min", -(thickB+thick/2));set("z max", zmax);
+	set("alpha", 0.05);
+# 设置网格参数
+	set("override mesh order from material database",1);
+	set("mesh order",3);  # 网格等级从高到低   1:5
+addrect; # 绘制波导
+	set("name", DEV); 
+	set("material",material_Si);
+	set("x min", xmin); 	set("x max", xmax);
+	set("y", port1Y);      	set("y span", width);
+	set("z", 0);    		set('z span', thick);
+# 绘制slab 
+if (slab_opt == 1)
+	{
+	addrect; 
+		set("name", "slab"); 
+		set("material",material_Si);
+		set("x min", xmin);		
+		set("x max", xmax);
+	if ( thick_Slab==0 )  
+		{
+		set("y min", port1Y); 	
+		set("y max", port1Y);
+		} 
+	else 
+		{ 
+		set("y", port1Y);       
+		set("y span", widthB);
+		}
+	set("z min", -thick/2);		
+	set("z max", -thick/2+thick_Slab);
+	set("alpha", 0.4);
+	}
+}
+else
+{# 再次建模
+select('oxide');
+	set("x min", xmin);  set("x max", xmax);
+	set("y", port1Y);    set("y span", widthB);
+	set("z min", -(thickB+thick/2));set("z max", zmax);
+# 设置网格参数
+	set("mesh order",3);  # 设网格等级为3
+select(DEV); 
+	set("x min", xmin); 	set("x max", xmax);
+	set("y", port1Y);      	set("y span", width);
+	set("z", 0);    		set('z span', thick);
+# 绘制slab 
+if (slab_opt == 1)
+	{
+	select('slab');  
+		set("material", material_Si );
+		set("x min", xmin );		
+		set("x max", xmax );
+	if ( thick_Slab==0 )  
+		{
+		set("y min", port1Y ); 	
+		set("y max", port1Y );
+		} 
+	else 
+		{ 
+		set("y", port1Y );       
+		set("y span", widthB );
+		}
+	set("z min", -thick/2 );		
+	set("z max", -thick/2+thick_Slab );
+	}
+}
+redrawon;						# 启用自动重绘

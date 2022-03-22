@@ -1,0 +1,28 @@
+# Lumerical SB 仿真 波导交叉
+clear;closeall;
+###############################################
+home = filedirectory(currentscriptname);
+pathB = 'E:\Codes\Lumerical\Components Library\WG crossing';
+feval(pathB+'\' + 'ini__' );
+feval(pathB+'\ini'+'\' + 'crossingQini' );
+feval(pathB+'\ini'+'\' + 'crossingQrep' );
+newproject;
+add_opt = 0;
+feval(pathB+'\' + 'crossingModel' );
+			
+file = DEV + ' ' + num2str(JR*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'crossingID' );
+save(pathB+demon+pfolderP+'\' + file );	# 保存器件的原始建模文件	
+
+ ##执行仿真			
+cd(pathB+demon + pfolderG );
+     run;				# 仿真，并保存项目文件到当前文件夹
+    #if( solver_opt == 2 )
+	#{
+	#emesweep("wavelength sweep");	
+	#setemeanalysis('parameter','group span 2');
+	#emesweep("propagation sweep");			
+	#}
+ #后处理
+    feval(pathB+lowerical+'\'+	'hitFDTD'	);
+    # matlabsave( pathB+ demon + pfolderExport + '\' + file );

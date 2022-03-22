@@ -1,0 +1,189 @@
+# 2*2 MMI
+WG1 = 'WG1';
+WG2 = 'WG2';
+WG3 = 'WG3';
+WG4 = 'WG4';
+WG5 = 'WG MM';
+if (clad_opt == 1)
+	{
+	zmax = clad;
+	}
+else
+	{
+	zmax = -thick/2;
+	}
+if (add_opt==0)
+{
+addrect;   # SiO2层
+	set('name','oxide');
+	set('x',ExcitP);	    	set('x span',lengthDEV+2*lengthE );
+	set('y',ExcitQ);  		set('y span',widthB);
+	set('z min',-thickB-thick/2);    	set('z max',zmax);
+	set('material',material_BOX);	
+# 2*2 MMI
+addpoly;
+	set('name' , WG1 ); 
+	pv = [# 顶点集，用于绘制taper
+		 0  ,  width/2;
+		 JR ,  widthTAP/2;
+		 JR , -widthTAP/2;
+		 0  , -width/2
+		 ];
+	set("vertices" , pv);
+	set('x' , port1X);	set('y' , port1Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG4 ); 
+	pv = [# 顶点集，用于绘制taper
+		 0  ,  width/2;
+		 JR ,  widthTAP/2;
+		 JR , -widthTAP/2;
+		 0  , -width/2
+		 ];
+	set("vertices" , pv);
+	set('x' , port4X);	set('y' , port4Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG3 ); 
+	pv = [# 顶点集，用于绘制taper
+		 -JR  ,  widthTAP/2;
+		 0    ,  width/2;
+		 0    , -width/2;
+		 -JR  , -widthTAP/2
+		 ];
+	set("vertices" , pv);
+	set('x' , port3X);	set('y' , port3Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG2 ); 
+	pv = [# 顶点集，用于绘制taper
+		 -JR  ,  widthTAP/2;
+		 0    ,  width/2;
+		 0    , -width/2;
+		 -JR  , -widthTAP/2
+		 ];
+	set("vertices" , pv);
+	set('x' , port2X);	set('y' , port2Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addrect;   #  多模区域
+	set('name',WG5);
+	set('x',ExcitP);	set('x span',lengthMM);
+	set('y',ExcitQ);	set('y span',widthMM);
+	set('z',0); 	set('z span',thick);
+	set('material',material_Si);
+selectpartial('WG');		
+addtogroup(DEV);			  
+#######################################################
+addrect;   
+	set('x min',port1X-lengthE);set('x max',port1X);
+	set('y',port1Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',material_Si);
+	set('name','io_wg1');
+select('io_wg1');copy;
+	set('x min',port4X-lengthE);  set('x max',port4X);
+	set('y',port4Y);
+	set('name','io_wg4');
+select('io_wg1');copy;
+	set('x min',port3X);  set('x max',port3X+lengthE);
+	set('y',port3Y);	
+	set('name','io_wg3');
+select('io_wg1');copy;
+	set('x min',port2X);  set('x max',port2X+lengthE);
+	set('y',port2Y);
+	set('name','io_wg2');
+selectpartial('io_');		
+addtogroup(Rec);
+}
+else
+{
+select(DEV);	shiftselect(Rec);	
+	delete;
+select('oxide');
+	set('x',ExcitP);	    	set('x span',lengthDEV+2*lengthE );
+	set('y',ExcitQ);  		set('y span',widthB);
+	set('z min',-(thickB+thick/2));    	set('z max',zmax);
+	set('material',material_BOX);	
+# 2*2 MMI
+addpoly;
+	set('name' , WG1 ); 
+	pv = [# 顶点集，用于绘制taper
+		 0  ,  width/2;
+		 JR ,  widthTAP/2;
+		 JR , -widthTAP/2;
+		 0  , -width/2
+		 ];
+	set("vertices" , pv);
+	set('x' , port1X);	set('y' , port1Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG4 ); 
+	pv = [# 顶点集，用于绘制taper
+		 0  ,  width/2;
+		 JR ,  widthTAP/2;
+		 JR , -widthTAP/2;
+		 0  , -width/2
+		 ];
+	set("vertices" , pv);
+	set('x' , port4X);	set('y' , port4Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG3 ); 
+	pv = [# 顶点集，用于绘制taper
+		 -JR  ,  widthTAP/2;
+		 0    ,  width/2;
+		 0    , -width/2;
+		 -JR  , -widthTAP/2
+		 ];
+	set("vertices" , pv);
+	set('x' , port3X);	set('y' , port3Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG2 ); 
+	pv = [# 顶点集，用于绘制taper
+		 -JR  ,  widthTAP/2;
+		 0    ,  width/2;
+		 0    , -width/2;
+		 -JR  , -widthTAP/2
+		 ];
+	set("vertices" , pv);
+	set('x' , port2X);	set('y' , port2Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addrect;   #  多模区域
+	set('name',WG5);
+	set('x',ExcitP);	set('x span',lengthMM);
+	set('y',ExcitQ);	set('y span',widthMM);
+	set('z',0); 	set('z span',thick);
+	set('material',material_Si);
+selectpartial('WG');		
+addtogroup(DEV);			  
+#######################################################
+addrect;   
+	set('x min',port1X-lengthE);set('x max',port1X);
+	set('y',port1Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',material_Si);
+	set('name','io_wg1');
+select('io_wg1');copy;
+	set('x min',port4X-lengthE);  set('x max',port4X);
+	set('y',port4Y);
+	set('name','io_wg4');
+select('io_wg1');copy;
+	set('x min',port3X);  set('x max',port3X+lengthE);
+	set('y',port3Y);	
+	set('name','io_wg3');
+select('io_wg1');copy;
+	set('x min',port2X);  set('x max',port2X+lengthE);
+	set('y',port2Y);
+	set('name','io_wg2');
+selectpartial('io_');		
+addtogroup(Rec);
+}

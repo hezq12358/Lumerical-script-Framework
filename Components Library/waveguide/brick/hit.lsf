@@ -1,0 +1,35 @@
+# 妈的 ， lumerical
+# 在循环中，提取 FDE  的数据	
+if  ( k == 1 )
+{
+	y = getdata("FDE::data::mode"+num2str(1) , 'y');
+	z = getdata("FDE::data::mode"+num2str(1) , 'z');
+# 存放电场数据
+	modalxR = matrix(hong,SB,length(y),length(z));  	# 存放 2D 模场数据
+	modalyR= matrix(hong,SB,length(y),length(z));  	# 存放 2D 模场数据
+	modalzR = matrix(hong,SB,length(y),length(z));  	# 存放 2D 模场数据
+	# 存放磁场数据
+	# magnxR = matrix(hong,SB,length(y),length(z));  	# 存放 2D 模场数据
+	# magnyR = matrix(hong,SB,length(y),length(z));  	# 存放 2D 模场数据
+	# magnzR = matrix(hong,SB,length(y),length(z));  	# 存放 2D 模场数据
+}
+
+
+for ( m=1:SB ) 
+	{   # extract mode data     
+	neffM (k,m) = abs( getdata( "FDE::data::mode"+num2str(m) , "neff" ) );
+	TE_polM(k,m) = getdata( "FDE::data::mode"+num2str(m) , "TE polarization fraction" );
+	
+	
+	# 存放电场数据
+	modalxR(k,m,:,:) = pinch(getdata( 'FDE::data::mode'+num2str(m) , 'Ex'));
+	modalyR(k,m,:,:) = pinch(getdata( 'FDE::data::mode'+num2str(m) , 'Ey'));
+	modalzR(k,m,:,:) = pinch(getdata( 'FDE::data::mode'+num2str(m) , 'Ez'));
+	# 存放磁场数据
+	# magnxR(k,m,:,:) = pinch(getdata( 'FDE::data::mode'+num2str(m) , 'Hx'));
+	# magnyR(k,m,:,:) = pinch(getdata( 'FDE::data::mode'+num2str(m) , 'Hy'));
+	# magnzR(k,m,:,:) = pinch(getdata( 'FDE::data::mode'+num2str(m) , 'Hz'));
+	}
+
+
+

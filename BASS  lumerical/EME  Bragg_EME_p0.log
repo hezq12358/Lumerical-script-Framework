@@ -1,0 +1,68 @@
+Ansys Lumerical 2020 R2 Eigenmode Expansion Solver Version 7.16.2387 (Windows 64bit)
+ expires (month/day/year): 12/31/2035
+using config file: Ansys Licensing set with ANSYSLMD_LICENSE_FILE
+license host: 
+current time: Sun Jan 31 10:27:07 2021
+Running on host: LAPTOP-TV95F1C9
+Running lms file: D:\Program Files\Lumerical_\bin\eme-engine-msmpi.exe -t 8 -remote E:/Codes/Lumerical/吃屎的 lumerical  仿真光栅/EME  Bragg_EME.lms
+Running MODE Simulation
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.03125 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.046875 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.046875 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.328125 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.421875 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.375 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.046875 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.03125 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.046875 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.046875 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.046875 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 53 x 81
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.03125 seconds of CPU time

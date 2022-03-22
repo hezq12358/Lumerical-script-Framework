@@ -1,0 +1,18 @@
+# 从集成光学材料库导入xxx.mdf，用于Lumerical光学仿真
+pwdd = pwd;
+path = 'E:\Codes\Lumerical\PIC_material';
+cd(path);
+# 导入SOI.mdf
+# Silicon用于芯层,采用Lorentz折射率模型 ； 
+# Air用于包层,采用Dielectric折射率模型 ；
+# SiO2用于衬底/包层(高折射率差情形),采用Dielectric折射率模型 ；
+# SiO2用于衬底/包层(低折射率差情形),采用Lorentz折射率模型 ；
+matname = "SOI";
+importmaterialdb(matname + '.mdf');
+# 这个命令最新版才有，太坑了！！！
+
+
+
+
+cd(pwdd);
+

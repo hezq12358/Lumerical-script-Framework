@@ -1,0 +1,17 @@
+
+addfde;  
+	set("solver type", "2D X normal");
+	set("x", port2X+margSlover );  
+	set("y", port2Y );   set("y span", widthC+2*marg );
+	set("z", 0 );   	set("z span", boundaryZ );   
+	set('define y mesh by' , 'maximum mesh step');
+	set('define z mesh by' , 'maximum mesh step');
+	set("dy", 20e-9 );    set("dz", 20e-9 );
+	set("wavelength", waCve);
+	set("number of trial modes" , 10 );
+	findmodes;
+	selectmode(2);
+# 擦屁股
+switchtolayout;
+setactivesolver("EME");
+	

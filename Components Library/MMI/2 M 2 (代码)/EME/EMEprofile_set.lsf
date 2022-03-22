@@ -1,0 +1,31 @@
+select(solver);
+	x = get('x min');   xB = get('x max');
+	y = get('y');       yB = get('y span');
+# 轮廓监视器 
+if (add_opt==0)
+{
+addemeprofile;
+	set('name','top-down field');# 俯视图
+	set('monitor type','2D Z-normal');
+	set('x min', x );	set('x max', xB );	
+	set('y', y ); 		set('y span',yB );
+	set('z', 0);
+addemeprofile;
+	set('name','cross-section field');# 截面图
+	set('monitor type','2D X-normal');
+	set('x', x );
+	set('y', y ); 		set('y span',yB );
+	set('z',0); 		set('z span',thick+2*marg);
+}
+else
+{
+select('top-down field');# 俯视图
+	set('x min', x );	set('x max', xB );	
+	set('y', y ); 		set('y span',yB );
+	set('z', 0);
+select('cross-section field');# 截面图
+	set('x', x );
+	set('y', y ); 		set('y span',yB );
+	set('z',0); 		set('z span',thick+2*marg);
+}
+

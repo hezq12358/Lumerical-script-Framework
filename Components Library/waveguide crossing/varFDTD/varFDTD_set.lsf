@@ -1,0 +1,42 @@
+# 设置Var-FDTD仿真参数
+# path = 'E:\Codes\Lumerical\Grating\domo';
+# addpath(path);
+# 	GratingQini;
+# 上述是为了脚本测试，运行主程序时请注释掉
+
+# Var-FDTD
+if (solver_opt == 2)
+	{
+	feval(pathB+'\EME'+'\' + 'EME_set');
+	}
+else 
+if (solver_opt == 1)
+	{
+	feval(pathB+'\varFDTD'+'\' + 'varFDTD_doll_set' );	
+	if (pt_opt == 1)  
+		{
+		feval(pathB+'\varFDTD'+'\' + 'pt_set');		# 设置光源，功率监视器，时间监视器
+		}
+	else
+		{
+		feval(pathB+'\varFDTD'+'\' + 'port_set');	# 设置端口
+		}
+	if (profile_opt == 1)
+		{
+		feval(pathB+'\varFDTD'+'\' + 'profile_set');
+		}
+	}
+else
+if (solver_opt == 3)
+	{
+	feval(pathB+'\FDTD3'+'\' + 'FDTD_set');
+	feval(pathB+'\FDTD3'+'\' + 'port_set');	# 设置端口
+	if (profile_opt == 1)
+		{
+		feval(pathB+'\FDTD3'+'\' + 'profile_set');
+		}
+	}
+
+
+
+

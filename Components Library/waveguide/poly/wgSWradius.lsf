@@ -1,0 +1,54 @@
+#  骚喵弯曲半径，计算 UBWG-BWG's Excitation Ratio
+#  waCve = 1550e-9; 
+#clear;  closeall;
+# 必须打开一个已经建模好的.lms文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+    homeF = currentscriptname;
+home = filedirectory(homeF);
+pathB = 'E:\Codes\Lumerical\Components Library\waveguide';
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini\' + 'wgQini');
+feval(pathB+'\ini\' + 'wgQrep');
+add_opt = 1;  # 参数修正
+waCve = 1550e-9;
+width = 800e-9;
+feval(pathB+'\' + 'wgModel');
+	n = findmodes;	   
+copydcard(solver+'::data::mode'+num2str(1),'E0');
+copydcard(solver+'::data::mode'+num2str(2),'E1');
+# 骚喵参数
+BWG_opt = 1; 
+dw = 5;
+radiusL = transpose([10:dw:800]/M);
+neffM = zeros(2,size(radiusL,2));
+coin1 = zeros(2,size(radiusL,2));
+po1 = zeros(2,size(radiusL,2));
+coin2 = zeros(2,size(radiusL,2));
+po2 = zeros(2,size(radiusL,2));
+file = DEV + num2str(waCve*G)+'-'+num2str(width*G) + ' nm' + ' ' + num2str(floor(radiusL(1)*M));
+feval(pathB+'\ID'+'\' + 'wgID' );
+cd(pathB+demon + pfolderG );
+for (k = 1:length(radiusL))
+	{
+	radius = radiusL(k);
+	feval(pathB+'\' + 'wgModel');
+	n = findmodes;
+	neffM (1,k) = abs( getdata( "FDE::data::mode"+num2str(1) , "neff" ) );
+	neffM (2,k) = abs( getdata( "FDE::data::mode"+num2str(2) , "neff" ) );
+	# TE0 injecting 
+	olp = overlap('E0',solver+'::data::mode'+num2str(1));
+		coin1(1,k) = olp(1);
+		po1(1,k) = olp(2);
+	olp = overlap('E0',solver+'::data::mode'+num2str(2));
+		coin2(1,k) = olp(1);
+		po2(1,k) = olp(2);
+	# TE1 injecting	
+	olp = overlap('E1',solver+'::data::mode'+num2str(1));
+		coin1(2,k) = olp(1);
+		po1(2,k) = olp(2);
+	olp = overlap('E1',solver+'::data::mode'+num2str(2));
+		coin2(2,k) = olp(1);
+		po2(2,k) = olp(2);
+	}    
+    fxxk = substring(homeF,length(home)+2,length(homeF)-length(home)-1);	
+feval(pathB+'\brick'+'\' + '_'+fxxk );	

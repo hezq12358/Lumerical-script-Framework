@@ -1,0 +1,44 @@
+#  再次仿真   波导  截面  模式
+clear;  closeall;
+# 必须打开一个已经建模好的.lms文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+home = filedirectory(currentscriptname);
+pathB = 'E:\Codes\Lumerical\Components Library\waveguide';
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini\' + 'wgQini');
+feval(pathB+'\ini\' + 'wgQrep');
+add_opt = 1;
+
+
+
+# 定义扫描参数
+sop = 1500;		fin = 1600;		dw = 1;
+waCveL = [ sop:dw:fin ] / G;
+    hong = length(waCveL);
+width = 800e-9; 
+file = DEV + ' waCveL ' + num2str(waCveL(1)*G) + ' ~ ' + num2str(waCveL(end)*G) + ' nm';
+SB = 2;					# 只获取前两个模式的数据 ， 在多模波导中，这表示 TE0 , TE1
+
+# 保存文件
+# save(pathB + demon + pfolderP + '\' + file );  # 保存器件的原始建模文件
+cd(pathB + demon + pfolderG);
+	widthL = zeros(hong); 
+	neffM = zeros(hong,SB);
+	TE_polM = zeros(hong,SB);
+# 执行 FDE 求解
+for ( k=1:hong )
+{
+    waCve = waCveL(k);
+    feval(pathB+'\' + 'wgModel');
+    n = findmodes;	   # 利用特征模求解器求解模式								
+    feval(pathB+'\brick'+'\' + 'hit' );
+		widthL(k) = width; 
+}    
+
+
+
+
+cd(pathB + demon + pfolderExport);
+	matlabsave(file,widthL,waCveL,neffM,TE_polM,y,z,modalxR,modalyR,modalzR,meshsize);		# 将工作区的变量保存到.mat文件
+
+

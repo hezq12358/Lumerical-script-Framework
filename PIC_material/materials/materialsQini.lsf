@@ -1,0 +1,37 @@
+# materials.lsf - 创建波导/包层/空气的折射率模型，用于Lumerical光学仿真
+#  Si/SiO2  (在低折射率差波导时) 采用Lorentz折射率模型 ； 
+#  空气/SiO2(在高折射率差波导时) 采用Dielectric折射率模型 ；
+# Silicon用于芯层
+
+
+matname = "Si (Silicon) - Dispersive & Lossless";
+newmaterial = addmaterial("Lorentz"); #
+setmaterial(newmaterial,"name",matname);
+setmaterial(matname,"Permittivity",7.98737492);
+setmaterial(matname,"Lorentz Linewidth",1e8);
+setmaterial(matname,"Lorentz Resonance",3.93282466e+15);
+setmaterial(matname,"Lorentz Permittivity",3.68799143);
+setmaterial(matname,"color",[0.85, 0, 0, 1]); # red
+# Air用于包层
+matname = "Air";
+newmaterial = addmaterial("Dielectric");
+setmaterial(newmaterial,"name",matname);
+setmaterial(matname,"Refractive Index",1);
+setmaterial(matname,"color",[0.85, 0.85, 0, 1]);
+# SiO2用于衬底/包层(高折射率差情形)
+matname = "SiO2 (Glass) - Const";
+newmaterial = addmaterial("Dielectric");
+setmaterial(newmaterial,"name",matname);
+setmaterial(matname,"Permittivity",1.444^2);
+setmaterial(matname,"color",[0.5, 0.5, 0.5, 1]); # grey
+# SiO2用于衬底/包层(低折射率差情形)
+matname = "SiO2 (Glass) - Dispersive & Lossless";
+newmaterial = addmaterial("Lorentz");
+setmaterial(newmaterial,"name",matname);
+setmaterial(matname,"Permittivity",2.119881);
+setmaterial(matname,"Lorentz Linewidth",1e10);
+setmaterial(matname,"Lorentz Resonance",3.309238e+13);
+setmaterial(matname,"Lorentz Permittivity", 49.43721);
+setmaterial(matname,"color",[0.5, 0.5, 0.5, 1]); # grey
+
+

@@ -1,0 +1,15 @@
+# 根据器件参数，定义文件名，为避免同名覆盖
+fileT = '';
+if ( BWG_opt==1 )
+	{
+	fileT = fileT + ' BWG '+num2str(floor(radiusL(end)*M)) + 'p' + num2str(floor(radiusL(end)*G)-floor(radiusL(end)*M)*K) + ' um';
+	}
+if (slab_opt==1)
+	{
+	fileT = fileT + ' slab'+num2str(floor(thick_slab*G));
+	}
+if (clad_opt==1)
+	{
+	fileT = fileT + ' clad';
+	}	
+file = file + fileT;

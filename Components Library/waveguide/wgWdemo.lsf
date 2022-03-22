@@ -1,0 +1,29 @@
+#  仿真  单个波导  截面  模式
+clear;closeall;
+pathB = 'E:\Codes\Lumerical\Components Library\waveguide';
+home = filedirectory(currentscriptname);
+feval(pathB+'\' + 'ini__');
+newproject;    #新建一个仿真工程，GUI中的原有工程不会自动保存!
+add_opt = 0;
+feval(pathB+'\' + 'wgModel');
+# 定义骚喵参数
+Lian = 1;
+width = 800e-9; 
+
+file = DEV + ' width ' + num2str(width*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'wgID');
+SB = 2;		# 只获取前两个模式的数据  TE0 , TE1
+# 保存文件
+save(pathB+demon+pfolderP+'\' + file );
+cd(pathB+demon+pfolderG ); 
+# 参数修正
+	switchtolayout;
+	# width = widthL;
+	setnamed(DEV,'y span', width);
+	n = findmodes;	   # 相当于run
+	
+	
+	# feval(pathB+'\brick'+'\' + 'hit' );
+# matlabsave(pathB+demon+pfolderExportfile+'\' + file,width,waCve,neff,TE_pol,y,z,modalx,modaly,modalz,meshsize);		# 将工作区的变量保存到.mat文件
+
+

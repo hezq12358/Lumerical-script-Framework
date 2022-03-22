@@ -1,0 +1,12 @@
+# 执行多个仿真
+roman = 'E:\Codes\Lumerical\Grating\domo\MC';
+script = 'BraggDP';
+
+
+# feval(roman+'\ducpL'+'\' + script);
+# feval(roman+'widthL'+'\' + script);
+# feval(roman+'\gapL'+'\' + script);
+
+
+feval(roman+'\widthDL'+'\' + script);
+

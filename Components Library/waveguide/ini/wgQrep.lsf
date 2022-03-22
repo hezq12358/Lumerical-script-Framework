@@ -1,0 +1,20 @@
+# DEV参数
+width = 800e-9;        # 波导宽度
+# 求解器参数
+waveMIN = 1500e-9;
+waveMAX = 1600e-9;
+waCve = 1550e-9;
+DwaveU = 1;			# 每单位波长采样点数
+meshsize = 5e-9;    # 网格尺寸
+modes    = 4;       # 求解模式数
+# 选项
+# BWG_opt = 0;
+	# radius = 10e-6;     # 弯曲半径
+# slab_opt = 0;	        # 脊形波导
+solver_opt = 0;		# 采用何种求解器
+					# 0 = FDE
+					# 1 = var-FDTD
+					# 2 = EME
+					# 3 = 3D-FDTD
+# 高阶参数 (根据初始参数自动生成)
+feval(pathB+'\ini'+'\' +  'wgQSini');

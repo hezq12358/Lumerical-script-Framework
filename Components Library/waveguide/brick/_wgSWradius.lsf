@@ -1,0 +1,11 @@
+closeall;
+    neffU = zeros(2,1);
+    neffU(1) = abs( getdata( 'E0' , 'neff' ) );
+    neffU(2) = abs( getdata( 'E1' , 'neff' ) );
+plot(radiusL*M,neffM(1,:)-neffU(1),neffM(2,:)-neffU(2));
+for (k = 1:2)
+	{       
+	plot(radiusL*M,10*log10(po1(k,:)),10*log10(po2(k,:)));     # power coupling
+	plot(radiusL*M,10*log10(coin1(k,:)),10*log10(coin2(k,:))); # overlap integral	
+	}
+matlabsave(pathB+demon+pfolderExport+'\' + file );

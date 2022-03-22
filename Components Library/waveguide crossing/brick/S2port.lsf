@@ -1,0 +1,17 @@
+
+
+waveA = linspace(waveMIN,waveMAX,Dwave);
+Port3 = getresult('expansion','expansion for Port3expa');
+
+    po3 = Port3.T_net;
+# plot(waveA*G,10*log10(po3));
+
+#if (whpo==2)
+#{
+## Port2 = getresult('expansion','expansion for Port'+num2str(whpo)+'expa');
+#}
+#else 
+#{
+## Port1 = getresult('expansion','expansion for Port'+num2str(whpo)+'expa');
+#}
+

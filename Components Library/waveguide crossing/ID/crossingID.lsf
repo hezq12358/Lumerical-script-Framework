@@ -1,0 +1,25 @@
+
+# 根据器件参数，定义文件名，为避免同名覆盖
+fileT = '';
+if (Smode == TE)
+	{
+	temp = ' TE';
+	}
+else
+	{
+	temp = 'TM';
+	}
+fileT = fileT + temp;
+if (solver_opt == 2)
+	{
+	fileT = fileT + ' EME'; 
+	}
+else if (solver_opt == 3)
+	{
+	fileT = fileT + ' FDTD3';
+	}
+if (clad_opt==1)
+	{
+	fileT = fileT + ' clad';
+	}	
+file = file + fileT;

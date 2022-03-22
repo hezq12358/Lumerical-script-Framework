@@ -1,0 +1,21 @@
+# 根据器件参数，定义文件名，为避免同名覆盖
+fileT = '';
+if (Smode == 1)
+	{
+	temp = ' TE';
+	}
+else if ( Smode == 2 )
+	{
+	temp = ' TM';
+	}
+fileT = fileT + temp;
+if (solver_opt != 2)
+	{
+	fileT = fileT + ' ' + num2str(floor(lengthMM*M)) + 'p' + num2str(floor(lengthMM*G)-floor(lengthMM*M)*K) + ' um ';
+	}
+fileT = fileT + solver;
+if (clad_opt==1)
+	{
+	fileT = fileT + ' clad';
+	}	
+file = file + fileT;

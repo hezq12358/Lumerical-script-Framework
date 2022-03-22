@@ -1,0 +1,53 @@
+# EME 仿真
+if (add_opt==0)
+	{
+addeme;
+	}
+else
+	{
+select('EME');
+	}
+	
+	set('x min', emeDog);
+	set('y',emeSB); 			set('y span',boundaryY);
+	set('z',0);			   		set('z span',boundaryZ);
+	set('y min bc','PML');		set('y max bc','PML');
+	set('z min bc','Metal');	set('z max bc','Metal');
+# 设置cell属性
+# set('display cells',1);
+	set("number of modes for all cell groups", 20);		# 特征模展开到第20项 
+	set('wavelength',waCve);
+	set('number of cell groups',length(CellL));
+	set("number of periodic groups", 1); 				# periodic groups，仿光栅时用到
+	set("group spans", CellL );
+	set("cells",comboL);
+	set("subcell method",methodL);	# 0 = none,     
+									# 1 = CVCS
+# EME 自带两个port，记录S参数
+select("EME::Ports::port_1");
+	set('use full simulation span',1);
+	set("y",-emeSB+port1Y);	set("y span",width+2*marg);
+	set("z",0);				set("z span",boundaryZ);
+	updateportmodes(Smode);
+select("EME::Ports::port_2");
+	set("use full simulation span",1);
+	set("y",-emeSB+port2Y);	set("y span",width+2*marg);
+	set("z",0);				set("z span",boundaryZ);
+	updateportmodes(Smode);
+if (wave_opt>0)
+	{
+	setemeanalysis("wavelength sweep",1);
+	setemeanalysis("start wavelength",waveMIN);
+	setemeanalysis("stop wavelength",waveMAX);
+	setemeanalysis("number of wavelength points",Dwave);
+	setemeanalysis("calculate group delays",GD_opt);
+	}
+
+# 设置  长度  仿真参数
+setemeanalysis("propagation sweep",1);
+# setemeanalysis('parameter','group span 3');
+setemeanalysis("start",lengthMMMIN);
+setemeanalysis("stop",lengthMMMAX);
+setemeanalysis("number of points",DlengthMM);
+
+

@@ -1,0 +1,116 @@
+# varFDTD
+# 模式源 , 频域功率监视器 , 模式展开监视器
+x = port1X - donor*margSlover;
+y = port1Y;		yspan = width + 2*marg;
+# 	Smode	inject	Smode for EMEexpansion
+#	     1             2                  [2,4]     TE0  ,  TE1
+#	     2             1                  [1,2]     TM0  ,  TM1
+if (Smode == 1)
+	{# 注入 TE0
+	inject = 2;
+	}
+else if (Smode == 2)
+	{# 注入 TM0
+	inject = 1;
+	}
+if (add_opt==0)
+{
+addmodesource;
+	set('injection axis','x-axis'); 
+	set('direction','forward');
+	set('x' , x );		
+	set('y', y ); 	set('y span',yspan );
+	set('wavelength start',waveMIN);
+	set('wavelength stop',waveMAX);
+	updatesourcemode(inject);   # 2 = TE0      ,      1 = TM0
+# 频域监视器，监视功率
+addpower;   # 入射端功率
+	set('name','laser');
+	set('monitor type','Linear Y');
+	set('x' , port1X-donor/2*margSlover );	
+	set('y' , y); 	set('y span' , yspan );
+	set('override global monitor settings',1);
+	# set('use source limits',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave); 
+addpower;   # 直通端
+	set('name','bar');
+	set('monitor type','Linear Y');
+	set('x' , port2X + marg );	
+	set('y' , port2Y ); 	set('y span' , width + 2*marg );
+	set('override global monitor settings',1);
+	# set('use source limits',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave); 
+if ( PortS == 3 )    
+	{
+addpower;   # 交叉端
+	set('name','cross');
+	set('monitor type','Linear Y');
+	set('x' , port3X + marg );	
+	set('y' , port3Y ); 	set('y span' , width + 2*marg ); 	
+	set('override global monitor settings',1);
+	# set('use source limits',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave);
+	}
+addmodeexpansion;   # 模式扩张监视器 
+	set('name', 'expansion');
+	set('monitor type', 'Linear Y');
+	set('x', port2X + marg );	
+	set('y', port2Y );	set('y span',width + 2*marg );
+	set('frequency points',Dwave);
+	updatemodes(inject*[1,2]);
+	setexpansion('Port1expa','laser');
+	setexpansion('Port2expa','bar');
+	if ( PortS == 3)
+		{
+	setexpansion('Port3expa','cross');
+		}
+}
+else
+{
+select('source');
+	set('injection axis','x-axis'); 
+	set('direction','forward');
+	set('x' , port1X-donor*margSlover );	
+	set('y' , y); 	set('y span' , yspan );
+	set('wavelength start',waveMIN);
+	set('wavelength stop',waveMAX);
+	updatesourcemode(inject);   # 2 = TE0      ,      1 = TM0
+select('laser');	 # 入射段功率
+	set('x' , port1X-donor/2*margSlover );	
+	set('y' , y); 	set('y span' , yspan );
+	set('override global monitor settings',1);
+	# set('use source limits',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave); 
+select('bar');       # 直通端
+	set('x' , port2X + marg );	
+	set('y' , port2Y ); 	set('y span' , width + 2*marg );
+	set('override global monitor settings',1);
+	# set('use source limits',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave); 
+if ( PortS == 3 )
+	{    
+select('cross');     # 交叉端  
+	set('x' , port3X + marg );	
+	set('y' , port3Y ); 	set('y span' , width + 2*marg ); 	
+	set('override global monitor settings',1);
+	# set('use source limits',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave); 
+	}
+select('expansion');
+	set('x', port2X + marg );	
+	set('y',port2Y );	set('y span',width + 2*marg );
+	set('frequency points',Dwave);
+	updatemodes(inject*[1,2]);
+	setexpansion('Port1expa','laser');
+	setexpansion('Port2expa','bar');
+	if ( PortS == 3)
+		{
+	setexpansion('Port3expa','cross');
+		}
+}

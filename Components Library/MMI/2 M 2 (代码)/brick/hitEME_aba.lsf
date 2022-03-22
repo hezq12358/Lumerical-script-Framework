@@ -1,0 +1,21 @@
+#  提取数据
+waveA = linspace(waveMIN,waveMAX,Dwave);
+
+if (wave_opt == 0)
+	{
+Se = getemesweep("S");	# 获取长度扫描信息
+	}
+else 
+	{
+Se = getemesweep("S_wavelength_sweep"); # 获取波长扫描信息
+	}
+
+# 散射系数
+sc21 = Se.s21;     # TE0-TE1  前向模式转换
+sc11 = Se.s11;     # TE0-TE0  基模反射
+# 功率传输
+po21 = abs(sc21)^2;
+po11 = abs(sc11)^2;
+# 相位
+ph21 = angle(sc21);
+ph11 = angle(sc11);

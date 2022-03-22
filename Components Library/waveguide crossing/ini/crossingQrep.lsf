@@ -1,0 +1,55 @@
+# DEV参数 
+# thick = 220e-9;          # 波导厚度
+
+
+width = 500e-9;          # 波导宽度
+
+
+# widthMM = 1350e-9;
+# JR = 1300e-9;			 # taper 长度  ， 非绝热 
+# lengthMM = 4960e-9;		  # EME 仿真结果
+# lengthMM = 4400e-9;          # TE  ， 想把中心波长  优化到 1550 nm , 稍微降低了插损， 但串扰增大了
+
+# widthMM = 1750e-9;
+# JR = 1800e-9;			  # taper 长度  ， 非绝热
+# lengthMM = 8290e-9;		  #  TE
+# lengthMM = 8660e-9;           # TM
+
+# widthMM = 2000e-9;
+# JR = 2200e-9;			 # taper 长度  ， 非绝热
+# lengthMM = 10890e-9;		 #  TE
+# lengthMM = 10585e-9;         # TM    2021-8-8   损耗有待优化
+
+widthMM = 2500e-9;
+JR = 3000e-9;			 # taper 长度  ， 非绝热
+lengthMM = 15215e-9;          # TM
+
+# 求解器参数
+waveMIN = 1400e-9;
+waveMAX = 1700e-9;
+waCve = 1550e-9;
+DwaveU = 1;				 # 每单位波长采样点数
+lengthMMMIN = 4000e-9;	  		   
+lengthMMMAX = 6000e-9;    
+DlengthMM = 201;  
+Mesh_level = 2;		 	# 网格等级
+sim_time = 36000e-15;	# 仿真时间
+dt = 0.99;				# 时间步长稳定因子，默认为0.99，若发散，将其改小
+# 选项
+clad_opt = 1;       # 是否加clad
+pt_opt = 1;				# 弃用--If true , 设置功率，时间监视器 ; 否则 ， 设置端口   
+profile_opt = 1;	# 是否计算电场轮廓
+GD_opt = 0;         # 是否计算群时延
+wave_opt = 0;		# 是否扫描波长      ，  用于  EME   求解器
+length_opt = 1;		# 是否扫描长度      ，  用于  EME   求解器
+Sp_opt = 0;			# 是否计算S参数   ，  用于   FDTD  后处理
+Smode = TM;			# 选择模式
+solver_opt = 3;		# 采用何种求解器
+					# 1	var-FDTD
+					# 2	EME
+					# 3	3D-FDTD
+gds_opt = 0;
+# 高阶参数 (根据初始参数自动生成)    
+feval(pathB+'\ini'+'\' + 'crossingQSini');
+
+		

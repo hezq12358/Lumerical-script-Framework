@@ -1,0 +1,14 @@
+# 端口 of mmi
+#	     ----------------------
+#       4  ----------------------  3
+#	     ----------------------
+#       1  ----------------------  2
+#	     ----------------------  
+port1X = ExcitP-(lengthMM/2+JR); # 左下 
+port1Y = ExcitQ-gap/2;
+port4X = ExcitP-(lengthMM/2+JR); # 左上 
+port4Y = ExcitQ+gap/2;
+port3X = ExcitP+(lengthMM/2+JR); # 右上
+port3Y = ExcitQ+gap/2;
+port2X = ExcitP+(lengthMM/2+JR); # 右下
+port2Y = ExcitQ-gap/2;

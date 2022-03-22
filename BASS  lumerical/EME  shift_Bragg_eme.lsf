@@ -1,0 +1,35 @@
+lambda_min = 1.5e-6;
+lambda_max = 1.6e-6;
+freq_points = 501;
+wl=linspace(lambda_min,lambda_max,freq_points);
+p = 100;
+#p=[10,30,50,100,200,500,1000]; # specify an arbitrary number of periods.
+T = matrix(freq_points,length(p));
+
+switchtolayout;
+setnamed('EME','wavelength',mean(wl));
+run;
+
+setemeanalysis("update monitors",false); # saves time
+setemeanalysis("include slow diagnostics",false); # saves time
+setemeanalysis("include fast diagnostics",false); # saves time
+setemeanalysis("calculate group delays",false); # saves time
+
+setemeanalysis("override wavelength",true);
+for(ii=1:freq_points){
+    str=num2str(ii)+'/'+num2str(freq_points);
+    ?str;
+    setemeanalysis('wavelength',wl(ii));
+    
+    
+    for (i=1:length(p)){
+        setemeanalysis('override periodicity',true);
+        setemeanalysis('periods',[p(i);p(i)]);
+        emepropagate;
+        S = getresult('EME','user s matrix');
+        T(ii,i) = abs(S(2,1))^2;
+    }
+}
+setemeanalysis("override wavelength",false);
+
+plot(wl*1e6,T,'wavelength (um)','T');

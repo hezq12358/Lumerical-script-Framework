@@ -1,0 +1,195 @@
+
+# 波导交叉
+Wg1 = 'WG MM1';
+Wg2 = 'WG MM2';
+WG1 = 'WG1';
+WG2 = 'WG2';
+WG3 = 'WG3';
+WG4 = 'WG4';
+if (clad_opt == 1)
+	{
+	zmax = clad;
+	}
+else
+	{
+	zmax = -thick/2;
+	}
+if (add_opt==0)
+{
+addrect;   # SiO2层
+	set('name','oxide');
+	set('x min',xmin);	    	set('x max',xmax);
+	set('y',port1Y);  			set('y span',widthB);
+	set('z min',-(thickB+thick/2));    	set('z max',zmax);
+	set('material',material_BOX);	
+addrect;   # 绘制  波导交叉   的  多模部分
+	set('x min',port1X+JR); set('x max',port1X+lengthDEV-JR);
+	set('y',port1Y);		set('y span',widthMM);
+	set('z',0);				set('z span',thick);
+	set('material',material_Si);
+	set('name', Wg1 );
+addpoly;
+	set('name' , WG1 ); 
+	pv = [# 顶点集，用于绘制taper
+		 0  ,  width/2;
+		 JR ,  widthMM/2;
+		 JR , -widthMM/2;
+		 0   , -width/2 ];
+	set("vertices" , pv);
+	set('x' , port1X);	set('y' , port1Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);	set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG2 ); 
+	pv = [# 顶点集，用于绘制taper
+		 0 ,  widthMM/2;
+		 JR  ,  width/2;
+		 JR , -width/2;
+		 0   , -widthMM/2 ];
+	set("vertices" , pv);
+	set('x' , port2X-JR);	set('y' , port2Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);	set("z span" , thick);
+	set('material',material_Si);
+addrect;   # 端口波导
+	set('x min',xmin);	        set('x max',port1X);
+	set('y',port1Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',material_Si);
+	set('name','input_WG1');
+select('input_WG1');
+copy( lengthDEV+lengthE , -port1Y+port2Y );
+	set('name','input_WG2');
+if (solver_opt!=2)
+	{ # 画波导交叉的   交叉部分
+addrect;   # 绘制  波导交叉   的  多模部分
+	set('x',port3X); set('x span',widthMM);
+	set('y',port1Y); set('y span',lengthMM);
+	set('z',0);		 set('z span',thick);
+	set('material',material_Si);
+	set('name', Wg2 );
+addpoly;
+	set('name' , WG3 ); 
+	pv = [# 顶点集，用于绘制taper
+		 -width/2 , 0;
+		 -widthMM/2 , JR;
+		 widthMM/2 , JR;
+		 width/2  , 0 ];
+	set("vertices" , pv);
+	set('x' , port3X);	set('y' , port3Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG4 ); 
+	pv = [# 顶点集，用于绘制taper
+		 -width/2 , 0;
+		 -widthMM/2 , -JR;
+		 widthMM/2 , -JR;
+		 width/2  , 0 ];
+	set("vertices" , pv);
+	set('x' , port4X);	set('y' , port4Y);				# 设置多边形的左上角坐标--偏移量
+				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);	set("z span" , thick);
+	set('material',material_Si);
+addrect;   # 端口波导
+	set('x',port3X);	        	set('x span',width);
+	set('y min',port3Y-lengthE);    set('y max',port3Y);
+	set('z',0);						set('z span',thick);
+	set('material',material_Si);
+	set('name','input_WG3');
+select('input_WG3');
+copy( -port3X+port4X , lengthDEV+lengthE );
+	set('name','input_WG4');
+	}
+selectpartial('WG');
+addtogroup(DEV);
+}
+else
+{
+select('oxide');
+	set('x min',xmin);	    	set('x max',xmax);
+	set('y',port1Y);  			set('y span',widthB);
+	set('z min',-thickB-thick/2);    	set('z max',zmax);
+	set('material',material_BOX);	
+select(DEV);
+	delete;
+addrect;   # 绘制  波导交叉   的  多模部分
+	set('x min',port1X+JR); set('x max',port1X+lengthDEV-JR);
+	set('y',port1Y);		set('y span',widthMM);
+	set('z',0);				set('z span',thick);
+	set('material',material_Si);
+	set('name', Wg1 );
+addpoly;
+	set('name' , WG1 ); 
+	pv = [# 顶点集，用于绘制taper
+		 0  ,  width/2;
+		 JR ,  widthMM/2;
+		 JR , -widthMM/2;
+		 0   , -width/2 ];
+	set("vertices" , pv);
+	set('x' , port1X);	set('y' , port1Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);	set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG2 ); 
+	pv = [# 顶点集，用于绘制taper
+		 0 ,  widthMM/2;
+		 JR  ,  width/2;
+		 JR , -width/2;
+		 0   , -widthMM/2 ];
+	set("vertices" , pv);
+	set('x' , port2X-JR);	set('y' , port2Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);	set("z span" , thick);
+	set('material',material_Si);
+addrect;   # 端口波导
+	set('x min',xmin);	        set('x max',port1X);
+	set('y',port1Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',material_Si);
+	set('name','input_WG1');
+select('input_WG1');
+copy( lengthDEV+lengthE , -port1Y+port2Y );
+	set('name','input_WG2');
+if (solver_opt!=2)
+	{ # 画波导交叉的   交叉部分
+addrect;   # 绘制  波导交叉   的  多模部分
+	set('x',port3X); set('x span',widthMM);
+	set('y',port1Y); set('y span',lengthMM);
+	set('z',0);		 set('z span',thick);
+	set('material',material_Si);
+	set('name', Wg2 );
+addpoly;
+	set('name' , WG3 ); 
+	pv = [# 顶点集，用于绘制taper
+		 -width/2 , 0;
+		 -widthMM/2 , JR;
+		 widthMM/2 , JR;
+		 width/2  , 0 ];
+	set("vertices" , pv);
+	set('x' , port3X);	set('y' , port3Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);		set("z span" , thick);
+	set('material',material_Si);
+addpoly;
+	set('name' , WG4 ); 
+	pv = [# 顶点集，用于绘制taper
+		 -width/2 , 0;
+		 -widthMM/2 , -JR;
+		 widthMM/2 , -JR;
+		 width/2  , 0 ];
+	set("vertices" , pv);
+	set('x' , port4X);	set('y' , port4Y);				# 设置多边形的左上角坐标--偏移量
+				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);	set("z span" , thick);
+	set('material',material_Si);
+addrect;   # 端口波导
+	set('x',port3X);	        	set('x span',width);
+	set('y min',port3Y-lengthE);    set('y max',port3Y);
+	set('z',0);						set('z span',thick);
+	set('material',material_Si);
+	set('name','input_WG3');
+select('input_WG3');
+copy( -port3X+port4X , lengthDEV+lengthE );
+	set('name','input_WG4');
+	}
+selectpartial('WG');
+addtogroup(DEV);
+}

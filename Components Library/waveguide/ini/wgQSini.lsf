@@ -1,0 +1,14 @@
+# 高阶参数 (根据初始参数自动生成)
+# 求解器参数            
+widthDEV = width;
+feval(pathB+'\ini'+'\' + 'wgPort' );
+xmin = port1X-lengthE;  		
+xmax = port1X+lengthE; 
+widthB = widthDEV + 2*widthE; # 衬底宽度
+# 仿真边缘
+boundaryY = width + 2*TMD*marg; 
+boundaryZ = thick + 2*marg;
+# 网格参数 -- 器件的特征尺寸
+pitchX = 100e-9;
+pitchY = width;		
+pitchZ = thick;

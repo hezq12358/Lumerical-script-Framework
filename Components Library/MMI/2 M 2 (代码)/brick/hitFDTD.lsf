@@ -1,0 +1,20 @@
+# 提取 FDTD   频域监视器数据
+laser = transmission('laser');
+po2 = transmission('bar')/laser;
+if ( PortS == 3)
+{
+po3 = transmission('cross')/laser;
+if ( loop_opt==0 )
+	{# 在循环时，loop_opt = 1
+	waveA = linspace(waveMIN,waveMAX,Dwave);
+plot(waveA*G,10*log10(abs(po3)),10*log10(po2));
+	}
+}
+else if ( PortS == 2 )
+{
+if ( loop_opt==0 )
+	{# 在循环时，loop_opt = 1
+	waveA = linspace(waveMIN,waveMAX,Dwave);
+plot(waveA*G,10*log10(po2));
+	}
+}

@@ -1,0 +1,5 @@
+pathB = 'E:\Codes\Lumerical\Components Library\waveguide';
+
+feval(pathB+'\poly'+'\' + 'wgSWradiusXwaCveA' );
+
+feval(pathB+'\poly'+'\' + 'wgSWradiusXwaCveB' );

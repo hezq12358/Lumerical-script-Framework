@@ -1,0 +1,123 @@
+# N-WGs-symmetric PBS
+#       4  ----------------------  3
+#       1  ----------------------  2
+orig = 'WG' + 'orig';  # 第一根波导   ， 原生
+twin = 'WG' + 'twin';  # 第二根波导   ,   孪生
+WG2 = 'WG2';
+WG3 = 'WG3';
+if (clad_opt == 1)
+	{
+	zmax = clad;
+	}
+else
+	{
+	zmax = -thick/2;
+	}
+if (add_opt==0)
+{
+addrect;   # SiO2层
+	set('name','oxide');
+	set('x min',xmin);	    	set('x max',xmax);
+	set('y',port1Y);  			set('y span',widthB);
+	set('z min',-thickB-thick/2);    set('z max',zmax);
+	set('material',material_BOX);	
+# 绘制 N 波导 定向耦合器 
+addrect;   # 下侧的单模波导
+	set('x',(port1X+port2X)/2);set('x span',lengthDEV);
+	set('y',port1Y);set('y span',width);
+	set('z', 0 );	set('z span',thick);
+	set('material',material_Si);
+	set('name', orig );	
+nick = orig;
+for (k = 1:Nm)
+	{# drawing N bridge WGs in the middle
+	ybias = middle;
+	if (k==1)
+		{
+		ybias = 1/2*(width+middle);
+		}
+	select(nick);
+	copy ( 0 , gapL(k) + ybias );
+		set('y span',middle);
+		nick = 'WG' + num2str(k);
+		set('name', nick );
+	} 
+select(nick);   # 上侧的单模波导
+copy( 0 , gap+1/2*(width+middle) );
+	set('y span',width);
+	set('name',twin);	
+selectpartial('WG');		
+addtogroup(DEV);			  
+# 四个接入波导
+addrect;   
+	set('x min',xmin);	        set('x max',port1X);
+	set('y',port1Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',material_Si);
+	set('name','input_wg1');
+select('input_wg1');
+copy( lengthDEV + lengthE );
+	set('name','input_wg2');
+select('input_wg1');
+copy( 0 , widthDEV-width );
+	set('name','input_wg4');
+select('input_wg1');
+copy( lengthDEV+lengthE , widthDEV-width );
+	set('name','input_wg3');
+}
+else
+{
+select('oxide');   # SiO2层
+	set('x min',xmin);	    	set('x max',xmax);
+	set('y',port1Y);  			set('y span',widthB);
+	set('z min',-thickB-thick/2);    	set('z max',zmax);
+	set('material',material_BOX);
+# N 波导定向耦合器
+select(DEV);
+	delete;
+addrect;   # 下侧的单模波导
+	set('x',(port1X+port2X)/2);set('x span',lengthDEV);
+	set('y',port1Y);set('y span',width);
+	set('z', 0 );	set('z span',thick);
+	set('material',material_Si);
+	set('name', orig );	
+nick = orig;
+for (k = 1:Nm)
+	{
+	ybias = middle;
+	if (k==1)
+		{
+		ybias = 1/2*(width+middle);
+		}
+	select(nick);
+	copy ( 0 , gapL(k) + ybias );
+		set('y span',middle);
+		nick = 'WG' + num2str(k);
+		set('name', nick );
+	} 
+select(nick);   # 上侧的单模波导
+copy( 0 , gap+1/2*(width+middle) );
+	set('y span',width);
+	set('name',twin);	
+selectpartial('WG');		
+addtogroup(DEV);
+
+# 四个接入波导
+select('input_wg1');   
+	set('x min',xmin);	        set('x max',port1X);
+	set('y',port1Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',material_Si);
+	select('input_wg2');	delete;
+	select('input_wg3');	delete;
+	select('input_wg4');	delete;
+select('input_wg1');
+copy( lengthDEV + lengthE );
+	set('name','input_wg2');
+select('input_wg1');
+copy( 0 , widthDEV-width );
+	set('name','input_wg4');
+select('input_wg1');
+copy( lengthDEV+lengthE , widthDEV-width );
+	set('name','input_wg3');
+}

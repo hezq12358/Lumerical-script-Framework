@@ -1,0 +1,23 @@
+# Lumerical仿真 ADC
+# clear;      closeall;
+# 必须打开一个已经建模好的.lms文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+home = filedirectory(currentscriptname);
+pathB = 'E:\Codes\specific language\Lumerical\Components Library\Triple WGs\N WGs';
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini'+'\' +  'TWgQini'  );
+feval(pathB+'\ini'+'\' +  'TWgQrep'  );
+add_opt = 1;
+lody = 0;	# not in loop body
+feval(pathB+'\' + 'TWgModel');
+			
+file = DEV + num2str(width*G) + '-' + num2str(middle*G) + '-' + ' gap ' + num2str(gap*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'TWgID' );
+
+
+# 执行仿真			
+feval(pathB+'\brick'+'\' + 'TWgRun' );
+# matlabsave(pathB+demon+pfolderExport+'\' + file );
+	
+	
+	

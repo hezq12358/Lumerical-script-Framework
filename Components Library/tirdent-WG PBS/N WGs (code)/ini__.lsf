@@ -1,0 +1,12 @@
+
+# 用于集成光学仿真时导入路径依赖的包
+pathB = 'E:\Codes\specific language\Lumerical\Components Library\Triple WGs\N WGs';				# 导入核心库
+
+demon = '\demon';										# 放置单次仿真结果
+MC = '\MC';												# 放置参数扫描结果
+lowerical = '\brick';									# 用于后处理的函数
+mater = 'E:\Codes\specific language\Lumerical\PIC_material\materials';	# 导入材料库
+weapon = 'E:\Codes\specific language\Lumerical\weapon';					# 导入通用函数库
+pfolderP = '\row';				# 存放没有run的lumerical文件
+pfolderG = '\result';			# 存放run之后的lumerical文件
+pfolderExport = '\matlab';		# 导出数据的文件夹

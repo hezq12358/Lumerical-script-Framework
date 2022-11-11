@@ -1,0 +1,31 @@
+# 导入GDS ， 仿真ADC
+clear;closeall;
+###############################################
+home = filedirectory(currentscriptname);
+pathB = 'E:\Codes\Lumerical\Components Library\Triple WGs\N WGs';
+feval(pathB+'\' + 'ini__' );
+feval(pathB+'\ini'+'\' + 'TWgQini' );
+feval(pathB+'\ini'+'\' + 'TWgQrep' );
+newproject;
+add_opt = 0;
+gds_opt = 1;
+middle = 506e-9;
+gap = 456e-9;
+Nm = 1;
+feval(pathB+'\' + 'TWgModel');
+
+			
+file = DEV + ' ' + num2str(middle*G) + ' gap ' + num2str(gap*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'TWgID');
+save(pathB+demon+pfolderP+'\' + file );	
+# 保存器件的原始建模文件	
+
+
+# 执行仿真  TE1-TE0		
+# cd(pathB+demon + pfolderG );
+    # run;
+    # # feval(pathB+lowerical+'\' + 'S2port' );	
+    # po32 = po3;
+
+    
+# matlabsave(pathB+demon+pfolderExport+'\' + file );

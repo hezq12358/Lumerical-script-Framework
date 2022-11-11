@@ -1,0 +1,39 @@
+# 用EME求解光谱 ， Dwave 不能太大
+# 必须在 (DEV)Wdemo.lsf 之后运行
+pathB = 'E:\Codes\Lumerical\Components Library\adiabatic ADC\domo';
+feval(pathB+'\' + 'ini__' );
+feval(pathB+'\ini'+'\' +  'adcQini'  );
+feval(pathB+'\ini'+'\' +  'adcQrep'  );
+add_opt = 1;
+# 扫描参数设置
+DwaveU = 1;
+Dwave = floor((waveMAX-waveMIN)*DwaveU*G)+1;		# 波长采样点数 
+waveA = linspace(waveMIN,waveMAX,Dwave);
+# 参数扫描
+po21 = zeros( size(waveA,1) , size(waveA,2) ); # lumerical 尼玛趁早倒闭
+for (k = 1 : length(po21))
+	{
+	waCve = waveA(k);
+	lengthCPMIN = lengthCP;
+	lengthCPMAX = lengthCPMIN + 1/M;
+	DlengthCP = 2;
+	feval(pathB+'\' + 'adcModel');
+	run;
+	if ( solver_opt==2 )
+	{
+	 # emesweep('wavelength sweep');
+	 setemeanalysis('parameter','group span 2');
+	 emesweep('propagation sweep');
+	 }
+	feval(pathB+lowerical+'\'+ 'hit' );
+	po21(k) = abs(Se.s12(1))^2;	
+	}
+plot(waveA,po21);
+
+## 保存数据
+file = DEV + ' width ' + num2str(width*G) + ' nm' + ' widthTAP ' + num2str(widthTAP*G) + ' nm' + ' waveA ' + num2str(waveA(1)*G) + ' nm' + ' ~ ' + num2str(waveA(end)*G);	
+feval(pathB + '\ID' + '\' + 'adcID');
+home = filedirectory(currentscriptname);
+matlabsave(home+'\' + file);
+	
+ 

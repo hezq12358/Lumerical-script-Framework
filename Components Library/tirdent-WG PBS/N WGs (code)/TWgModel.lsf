@@ -1,0 +1,35 @@
+# 三波导耦合器 建模
+if ( add_opt == 0 )
+	{
+feval(pathB + '\ini' + '\' + 'TWgQini');
+feval(pathB + '\ini' + '\' + 'TWgQrep');			
+feval( mater + '\' + 'materialsQini' );	
+if (gds_opt==1)
+	{
+	feval(pathB+'\LV'+'\' + 'LVTWgGDS'); 
+	}
+else
+	{
+	feval(pathB+'\LV'+'\' + 'TWgLV'); 
+	}				
+feval(pathB + '\varFDTD' + '\' + 'varFDTD_set');
+feval(pathB + '\MESH' + '\' + 'TWgMESH'); 		
+	}
+else
+	{
+feval(pathB + '\ini' + '\' + 'TWgQSini');		
+switchtolayout; 
+if (gds_opt==1)
+	{
+	feval(pathB+'\LV'+'\' + 'LVTWgGDS'); 
+	}
+else
+	{
+	feval(pathB+'\LV'+'\' + 'TWgLV'); 
+	}		
+feval(pathB + '\varFDTD' + '\' + 'varFDTD_set');
+feval(pathB + '\MESH' + '\' + 'TWgMESH'); 	
+	}
+	
+	
+	

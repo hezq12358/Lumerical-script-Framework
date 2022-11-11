@@ -1,0 +1,20 @@
+# 三波导  耦合器
+clear;closeall;
+###############################################
+home = filedirectory(currentscriptname);
+pathB = 'E:\Codes\specific language\Lumerical\Components Library\Triple WGs\N WGs';   # 核心库路径
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini'+'\' +  'TWgQini'  );
+feval(pathB+'\ini'+'\' +  'TWgQrep'  );
+newproject;
+add_opt = 0;
+lody = 0;	# not in loop body
+feval(pathB+'\' + 'TWgModel');
+			
+file = DEV + num2str(width*G) + '-' + num2str(middle*G) + '-' + ' gap ' + num2str(gap*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'TWgID' );
+save(home+demon+pfolderP+'\' + file );	# 保存器件的原始建模文件	
+
+# 执行仿真			
+#feval(pathB+'\brick'+'\' + 'TWgRun' );
+# matlabsave(pathB+demon+pfolderExport+'\' + file );

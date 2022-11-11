@@ -1,0 +1,42 @@
+# 网格尺寸必须是器件最小特征尺寸的整数分之一
+# 网格名字
+NT = 'Symmetric PBS mesh';		
+
+if (solver=='EME')
+	{  # EME   网格精度     高			
+	wovX = 5;	# 每个      特征尺寸X      wovX    等分 
+	wovY = 50;	# 每个      特征尺寸Y      wovY    等分 
+	wovZ = 22;	# 每个      特征尺寸Z      wovZ    等分 
+	}
+else 
+if (solver=='varFDTD')
+	{  # varFDTD   网格精度   低  ，   FDTD3   最低
+	wovX = 5;	# 每个      特征尺寸X      wovX    等分 
+	wovY = 16;	# 每个      特征尺寸Y      wovY    等分 
+	wovZ = 16;	# 每个      特征尺寸Z      wovZ    等分 
+	}
+else
+if (solver=='FDTD')
+	{  # varFDTD   网格精度   低  ，   FDTD3   最低
+	wovX = 4;	# 每个      特征尺寸X      wovX    等分 
+	wovY = 20;	# 每个      特征尺寸Y      wovY    等分 
+	wovZ = 11;	# 每个      特征尺寸Z      wovZ    等分 
+	}
+# 网格尺寸  = 特征尺寸/网格精度
+mesh_override_dx = pitchX / wovX;   # X方向，长度方向
+mesh_override_dy = pitchY / wovY;	# Y方向，截面水平方向
+mesh_override_dz = pitchZ / wovZ;	# Z方向，截面垂直方向
+if (add_opt==0)
+{
+addmesh;
+	set("name",NT);
+}
+else
+{
+select(NT);
+}
+	set('based on a structure', 1);
+	set('structure', DEV);
+	set('dx',mesh_override_dx); 
+	set('dy',mesh_override_dy);
+	set('dz',mesh_override_dz);	

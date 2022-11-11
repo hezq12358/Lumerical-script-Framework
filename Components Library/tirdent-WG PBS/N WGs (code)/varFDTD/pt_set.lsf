@@ -1,0 +1,99 @@
+# Note：lumerical的监视器只能"接收"单模光场。
+# 因此，仿真多模定向耦合器时，应设置多模光源 ， 和监视器
+x = port1X - donor*margSlover;
+y = port1Y;		yspan = width + 2*marg;
+if (Smode == TM)
+	{
+	inject = 1;
+	}
+else 
+	{
+	inject = 2;
+	}
+if (add_opt==0)
+{
+addmodesource;
+	set('injection axis','x-axis'); 
+	set('direction','forward');
+	set('x' , x );		
+	set('y', y ); 	set('y span',yspan );
+	set('wavelength start',waveMIN);
+	set('wavelength stop',waveMAX);
+	updatesourcemode(inject);   # 1 = TM0      ,      2 = TE0
+# 频域监视器，监视功率
+addpower;   # 入射端功率
+	set('name','laser');
+	set('monitor type','Linear Y');
+	set('x' , x+donor*margSlover );	
+	set('y' , y); 	set('y span' , yspan );
+	set('override global monitor settings',1)
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave); 
+addpower;   # 直通端
+	set('name','bar');
+	set('monitor type','Linear Y');
+	set('x' , port2X + sensor*margSlover );	
+	set('y' , port2Y ); 	set('y span' , width + 2*marg );
+	set('override global monitor settings',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave);     
+addpower;   # 交叉端
+	set('name','cross');
+	set('monitor type','Linear Y');
+	set('x' , port3X + sensor*margSlover );	
+	set('y' , port3Y ); 	set('y span' , width + 2*marg );
+	set('override global monitor settings',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave); 
+addmodeexpansion;   # 模式扩张监视器 
+	set('name', 'expansion');
+	set('monitor type', 'Linear Y');
+	set('x', port3X+sensor*margSlover );	
+	set('y',port3Y);	set('y span',width + 2*marg );
+	set('frequency points',Dwave);
+	updatemodes(1:2);    # TE0     TM0
+	setexpansion('Port1expa','laser');
+	setexpansion('Port2expa','bar');
+	setexpansion('Port3expa','cross');
+}
+else
+{
+select('source');
+	set('injection axis','x-axis'); 
+	set('direction','forward');
+	set('x' , port1X-donor/2*margSlover );	
+	set('y' , y); 	set('y span' , yspan );
+	set('wavelength start',waveMIN);
+	set('wavelength stop',waveMAX);
+	updatesourcemode(inject);   # TE0   TM0
+select('laser');	 # 入射端功率
+	set('monitor type','Linear Y');
+	set('x' , x+donor*margSlover );	
+	set('y' , y); 	set('y span' , yspan );
+	set('override global monitor settings',1)
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave);  
+select('bar');       # 直通端
+	set('monitor type','Linear Y');
+	set('x' , port2X + sensor*margSlover );	
+	set('y' , port2Y ); 	set('y span' , width + 2*marg );
+	set('override global monitor settings',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave);     
+select('cross');     # 交叉端
+	set('monitor type','Linear Y');
+	set('x' , port3X + sensor*margSlover );	
+	set('y' , port3Y ); 	set('y span' , width + 2*marg );
+	set('override global monitor settings',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',Dwave);
+select('expansion');
+	set('monitor type', 'Linear Y');
+	set('x', port3X+sensor*margSlover );	
+	set('y',port3Y);	set('y span',width + 2*marg );
+	set('frequency points',Dwave);
+	updatemodes(1:2);    # TE0     TM0
+	setexpansion('Port1expa','laser');
+	setexpansion('Port2expa','bar');
+	setexpansion('Port3expa','cross');
+}

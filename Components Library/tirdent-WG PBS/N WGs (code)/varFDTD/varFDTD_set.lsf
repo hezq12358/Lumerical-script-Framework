@@ -1,0 +1,32 @@
+# 仿真参数
+if (solver_opt == 2)
+	{
+	solver = 'EME';
+	feval(pathB+'\EME'+'\' + 'EME_set');
+	}
+else 
+if (solver_opt == 1)
+	{
+	solver = 'varFDTD';
+	feval(pathB+'\varFDTD'+'\' + 'varFDTD_doll_set' );	
+	if (pt_opt == 1)  
+		{
+		feval(pathB+'\varFDTD'+'\' + 'pt_set');		# 设置光源，功率监视器，时间监视器
+		}
+	else
+		{# 由于 2.5D-FDTD 不能选端口，此分支被弃用
+		feval(pathB+'\varFDTD'+'\' + 'port_set');	# 设置端口
+		}
+	if (profile_opt == 1)
+		{
+		feval(pathB+'\varFDTD'+'\' + 'profile_set');
+		}
+	}
+else
+if (solver_opt == 3)
+	{
+	solver = 'FDTD';
+	feval(pathB+'\FDTD3'+'\' + 'FDTD_set');
+	}
+
+

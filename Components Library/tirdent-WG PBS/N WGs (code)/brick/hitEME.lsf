@@ -1,0 +1,28 @@
+#  提取数据
+waveA = linspace(waveMIN,waveMAX,Dwave);
+lengthCPA = linspace(lengthCPMIN,lengthCPMAX,DlengthCP);
+if (wave_opt == 0)
+	{ # 获取长度扫描信息
+Se = getemesweep("S");	
+	}
+else 
+	{ # 获取波长扫描信息
+Se = getemesweep("S_wavelength_sweep"); 
+	}
+
+# 散射系数
+sc31TE = Se.s51;     # TE  通
+sc21TE = Se.s31;     # TE 泄露
+sc21TM = Se.s42;     # TM 通
+sc31TM = Se.s62;     # TM 泄露
+# 功率传输
+po31TE = (abs(sc31TE))^2;
+po21TE = (abs(sc21TE))^2;
+po21TM = (abs(sc21TM))^2;
+po31TM = (abs(sc31TM))^2;
+# 相位
+ph31TE = angle(sc31TE);
+ph21TE = angle(sc21TE);
+ph21TM = angle(sc21TM);
+ph31TM = angle(sc31TM);
+

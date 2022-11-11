@@ -1,0 +1,9 @@
+#  提取数据
+if (wave_opt == 0)
+{
+Se = getemesweep("S");	# 获取长度扫描信息
+}
+else 
+{
+Se = getemesweep("S_wavelength_sweep"); # 获取波长扫描信息
+}

@@ -1,0 +1,11 @@
+# 提取频域监视器  的  数据
+laser = transmission('laser');
+po3 = transmission('cross')/laser;
+po2 = transmission('bar')/laser;
+
+if ( lody == 0 )
+	{
+	plot( waveA*G, 10*log10(po3), 10*log10(po2) );
+	}
+	
+# waveA = linspace(waveMIN,waveMAX,Dwave);

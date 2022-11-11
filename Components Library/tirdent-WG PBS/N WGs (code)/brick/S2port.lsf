@@ -1,0 +1,18 @@
+# 从各端口，各模式提取  S参数
+#       4  ----------------------  3
+#       1  ----------------------  2
+Port1 = getresult('expansion','expansion for Port1expa');
+Port2 = getresult('expansion','expansion for Port2expa');
+Port3 = getresult('expansion','expansion for Port3expa');
+#po3 = Port3.T_total;     # cross
+#po2 = Port2.T_total;     # bar
+#po1 = Port1.T_total;     # laser
+
+po3 = Port3.T_forward;     # cross
+po2 = Port2.T_forward;     # bar
+po1 = Port1.T_dorward;     # laser
+if ( lody == 0 )
+	{
+	plot( waveA*G, 10*log10(po3/po1), 10*log10(po2/po1) );
+	plot( waveA*G, 10*log10(po1) );
+	}

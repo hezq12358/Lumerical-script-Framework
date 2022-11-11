@@ -1,0 +1,57 @@
+cd( pathB+demon + pfolderG );
+if( solver_opt == 2 )
+	{
+	if ( wave_opt > 0 )
+		{# lumerical 2020，微扰法 EME 波长扫描
+		run;
+		setemeanalysis("wavelength sweep",1);
+		setemeanalysis("start wavelength",waveMIN);
+		setemeanalysis("stop wavelength",waveMAX);
+		setemeanalysis("number of wavelength points",Dwave);
+		setemeanalysis("calculate group delays",GD_opt);
+		emesweep("wavelength sweep");
+		}
+	else	
+	if ( wave_opt < 0 )
+		{# 循环 骚喵 波长  ， 精确耗时   -----   未完成
+		thr  = zeros(size(waveA,1),size(waveA,2));
+		aad = zeros(size(waveA,1),size(waveA,2));	
+		lody = 1;
+		setemeanalysis("propagation sweep",1);
+		setemeanalysis('parameter','group span 1');
+		setemeanalysis("start",nail);
+		setemeanalysis("stop",nail+1/G);
+		setemeanalysis("number of points",2);
+		for ( k = 1:length(waveA) )
+			{
+			switchtolayout;
+			waCve = waveA(k);
+			select(solver);
+				set('wavelength',waCve);
+			run;
+			emesweep('propagation sweep');
+			feval(pathB+lowerical+'\'+ 'hitEME' );
+			thr(k) = po21(1);
+			aad(k) = po31(1);
+			}
+			po21 = thr;
+			po31 = aad;
+		plot(waveA*G , 10*log10(po21) , 10*log10(po31) );
+		}
+	else
+	if (length_opt>0)
+		{# 长度扫描    -----   未完成
+		run;
+		setemeanalysis('parameter','group span 2');
+		emesweep('propagation sweep');
+		}
+	feval(pathB+lowerical+'\'+ 'hitEME' );	# 提取 EME S参数		
+	}
+else
+	{ # 时域有限差分法
+	run;
+	feval(pathB+lowerical+'\'+ 'S2port' );	# 提取 FDTD 频域监视器参数		
+	}
+matlabsave(pathB+demon+pfolderExport+'\' + file );
+
+

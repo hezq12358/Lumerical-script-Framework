@@ -1,0 +1,34 @@
+# 根据器件参数，定义文件名，为避免同名覆盖
+fileT = '';
+	nick = '';
+for ( k = 1:length(gapL) )
+	{# 打印 gap 参数
+	nick = nick + '-' + num2str(gapL(k)*G) + ' nm';
+	}
+	fileT = fileT + nick;
+if ( solver != 'EME' )
+	{
+	fileT = fileT + ' ' + num2str(floor(lengthCP*M)) + 'p' + num2str(floor(lengthCP*G)-floor(lengthCP*M)*K) + ' um';
+	}
+if (Smode == TM)
+	{
+	fileT = fileT + ' TM';
+	}
+else if (Smode == TE)
+	{
+	fileT = fileT + ' TE';
+	}
+else if (Smode == TE_TM)
+	{
+	fileT = fileT + ' EM';
+	}
+fileT = fileT + ' ' +solver;
+if (gds_opt==1)
+	{
+	fileT = fileT + ' gds';
+	}
+if (clad_opt==1)
+	{
+	fileT = fileT + ' clad';
+	}
+file = file + fileT;

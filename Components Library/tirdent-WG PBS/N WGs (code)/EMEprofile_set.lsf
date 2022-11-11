@@ -1,0 +1,28 @@
+
+# 轮廓监视器 
+if (add_opt==0)
+{
+addemeprofile;
+set('name','top-down field');# 俯视图
+set('monitor type','2D Z-normal');
+set('x min', port1X-margSlover );	set('x max', port2X+margSlover );	
+set('y', emeSB ); 		set('y span', boundaryY );
+set('z', 0);
+addemeprofile;
+set('name','cross-section field');# 截面图
+set('monitor type','2D X-normal');
+set('x', port1X-margSlover );		
+set('y', port1Y ); 		set('y span',width+2*marg);
+set('z',0); 			set('z span',thick+2*marg);
+}
+else
+{
+select('top-down field');# 俯视图
+set('x min', port1X-margSlover );	set('x max', port2X+margSlover );	
+set('y', emeSB ); 		set('y span', boundaryY );
+set('z', 0);
+select('cross-section field');# 截面图
+set('x', port1X-margSlover );		
+set('y', port1Y ); 		set('y span',width+2*marg);
+set('z',0); 			set('z span',thick+2*marg);
+}

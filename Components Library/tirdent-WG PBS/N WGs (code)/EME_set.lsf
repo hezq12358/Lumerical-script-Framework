@@ -1,0 +1,21 @@
+profile_opt = 1;
+# EME 内部参数
+emeDog = port1X-nail;			        # EME 左侧输入
+emeSB = port1Y + 1/2*(widthDEV-width);  # EME  中心坐标 Y
+
+	Ddev = 2;
+emeMLGB = lengthDEV;
+CellL = [ nail ; emeMLGB ; nail ];
+	comboL  = [ 1 ; Ddev ; 1 ];	# 中间的器件被平均分为 Ddev 个 subcells	
+methodL = [ 0 ; 1 ; 0 ];  	# 0 = none
+							# 1 = CVCS
+# 求解器，端口
+feval(pathB+'\EME'+'\' + 'fmsp_set' );		
+if (profile_opt == 1)
+	{# 轮廓监视器
+	feval(pathB+'\EME'+'\' + 'EMEprofile_set' );		
+	}
+
+
+
+

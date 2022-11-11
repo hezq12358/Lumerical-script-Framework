@@ -1,0 +1,52 @@
+# 骚喵   width , gap    
+# 必须打开一个已经建模好的.lms文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+pathB = 'E:\Codes\specific language\Lumerical\Components Library\Triple WGs\N WGs';
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini'+'\' +  'TWgQini'  );
+feval(pathB+'\ini'+'\' +  'TWgQrep'  );
+add_opt = 1;
+feval(pathB+'\' + 'TWgModel');
+# 骚喵参数设障
+Nm = 1;	
+middleD = 1;
+gapD = 2;
+middleL = [500:middleD:514]/G;
+gapA = transpose([440:gapD:460])/G;
+
+
+rc = size(middleL,1)*size(gapA,2);
+NMB = zeros( 4*DlengthCP, rc );
+for (index = 1:rc)
+    {
+    k = ceil(index/length(gapA));
+    kk = index - (k-1)*length(gapA);
+    middle = middleL(k);
+    gap = gapA(kk);
+    
+    feval(pathB+'\' + 'TWgModel');
+			run;
+    if ( solver_opt==2 )
+    {
+     # emesweep('wavelength sweep'
+      setemeanalysis('parameter','group span 2');
+      emesweep('propagation sweep');
+    }
+    feval(pathB+lowerical+'\'+ 'hitEME' );
+    	    
+    NMB(1:DlengthCP,index) =  po31TE;
+    NMB(1+DlengthCP:2*DlengthCP,index) =  po21TE;
+    NMB(1+2*DlengthCP:3*DlengthCP,index) =  po21TM;
+    NMB(1+3*DlengthCP:4*DlengthCP,index) =  po31TM;    
+    }
+    
+    		
+file = DEV + ' width ' + num2str(width*G) + ' nm' + ' middle ' + num2str(middleL(1)*G) + '~' + num2str(middleL(end)*G) + ' nm' + ' gap ' + num2str(gapA(1)*G) + '~' + num2str(gapA(end)*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'TWgID' );
+
+home = filedirectory(currentscriptname);
+matlabsave(home+'\' + file);
+
+
+	
+	

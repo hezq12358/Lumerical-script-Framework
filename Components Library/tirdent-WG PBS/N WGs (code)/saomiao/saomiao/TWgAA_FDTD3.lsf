@@ -1,0 +1,64 @@
+# 骚喵   width , gap    
+# 必须打开一个已经建模好的.fsp文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+pathB = 'E:\Codes\Lumerical\Components Library\Triple WGs\N WGs';
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini'+'\' +  'TWgQini'  );
+feval(pathB+'\ini'+'\' +  'TWgQrep'  );
+add_opt = 1;
+solver_opt = 3;		# 3D-FDTD
+lengthCP = 2e-6;
+feval(pathB+'\' + 'TWgModel');
+# 骚喵参数设障
+Nm = 1;	
+middleD = 2;
+gapD = 2;
+waveA = linspace(waveMIN,waveMAX,Dwave);
+middleL = transpose((500:middleD:520))/G;
+gapA = transpose(440:gapD:460)/G;
+	qp = size(middleL,2)*size(gapA,2);
+NMB = zeros( Dwave,qp,4 );
+
+
+for ( q = 1:qp )
+	{
+	switchtolayout;
+	k = ceil(q/size(gapA,2));
+	kk = q-(k-1)*size(gapA,2);
+	if (kk==0)
+		{
+		kk = size(gapA,2);
+		}
+	middle = middleL(k);
+	gap = gapA(kk);
+	
+	
+	Smode = TM;
+		feval(pathB+'\' + 'TWgModel' );
+			run;
+				feval(pathB+lowerical+'\'+ 'hitFDTD' );
+					NMB(:,q,1) = po3;
+					NMB(:,q,2) = po2;
+	switchtolayout;
+	Smode = TE;
+		feval(pathB+'\' + 'TWgModel' );
+			run;
+				feval(pathB+lowerical+'\'+ 'hitFDTD' );
+					NMB(:,q,3) = po2;
+					NMB(:,q,4) = po3;
+	
+	A = 10*log10(NMB(:,q,1));
+	B = 10*log10(NMB(:,q,2));
+	C = 10*log10(NMB(:,q,3));
+	D = 10*log10(NMB(:,q,4));
+	plot(waveA*G,A,B,C,D);
+	}
+
+file = DEV + ' width ' + num2str(width*G) + ' nm' + ' middle ' + num2str(middleL(1)*G) + '~' + num2str(middleL(end)*G) + ' nm' + ' gap ' + num2str(gapA(1)*G) + '~' + num2str(gapA(end)*G) + ' nm';
+feval(pathB+'\ID'+'\' + 'TWgID' );
+
+home = filedirectory(currentscriptname);
+matlabsave(home+'\' +  file);
+
+	
+	

@@ -1,0 +1,28 @@
+# FDTD3   仿真  N-WGs-symmetric PBS
+if (add_opt==0)
+	{
+addfdtd;
+	}
+else
+	{
+select('FDTD');
+	}
+set('simulation time',sim_time);
+set('dt stability factor',dt);
+set('x min', port1X-margSlover);	set('x max' , port2X+margSlover);
+set('y min',ymin);  				set('y max', ymax);
+set('z',0);			        		set('z span',boundaryZ);
+# set('min mesh step', 1e-9);	# 粗网格
+set('mesh accuracy',Mesh_level);# 网格精度，一般设为 2
+set('x min bc','PML');	set('x max bc','PML');
+set('y min bc','PML');	set('y max bc','PML');
+set('z min bc','PML');	set('z max bc','PML');
+set('force symmetric y mesh',1);
+set('force symmetric z mesh',1);
+# 设置端口，用于模式展开
+feval(pathB+'\FDTD3'+'\' + 'port_set' );
+# 设置电场轮廓监视器
+if (profile_opt == 1)
+	{
+	feval(pathB+'\FDTD3'+'\' + 'profile_set' );
+	}

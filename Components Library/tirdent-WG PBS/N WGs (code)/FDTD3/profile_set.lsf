@@ -1,0 +1,41 @@
+# varFDTD 的轮廓监视器
+temp = 11;		# 默认取11个频点
+select(solver);
+	x = get('x');	xB = get('x span');
+	y = get('y'); 		yB = get('y span');
+	z = get('z'); 		zB = get('z span');
+
+if(add_opt==1)
+	{# 仿真区域    电场俯视图
+select('top-down field');
+	}
+else
+	{
+addprofile;	
+	}
+	set('name','top-down field');
+	set('monitor type','2D Z-normal');
+	set('z', z );
+	set('x', x );	set('x span', xB );
+	set('y', y );	set('y span', yB );
+	set('override global monitor settings',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',temp);
+
+if(add_opt==1)
+	{# 输出端口截面
+select('corss-section field');
+	}
+else
+	{
+addprofile;	
+	}
+	set('name','corss-section field');
+	set('monitor type','2D X-normal');
+	set('x', port3X+sensor*margSlover );		
+	set('y', y ); 	set('y span', yB );
+	set('z', z ); 	set('z span', zB );
+	set('override global monitor settings',1);
+	set('use linear wavelength spacing',1);
+	set('frequency points',temp);
+	

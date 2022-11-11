@@ -1,0 +1,66 @@
+# DEV参数
+# Current design
+solver_opt = 2;   #  2    EME；   3   FDTD3
+gds_opt = 0;
+
+# 2018 Simulation
+# width = 500e-9;   # 主波导宽度
+# middle = 511e-9; # 中间波导宽度
+# gap = 450e-9;		# 耦合间距
+# gapM = 260e-9;		# middle 波导彼此间距 , 大于特征尺寸
+# Nm = 1;				# 桥接波导数目
+# lengthCP = 32.3e-6;   # 耦合长度
+
+# Hezq
+width = 500e-9;   # 主波导宽度
+middle = 506e-9; # 中间波导宽度
+gap = 456e-9;		# 耦合间距
+gapM = 260e-9;		# middle 波导彼此间距 , 大于特征尺寸
+Nm = 1;				# 桥接波导数目
+lengthCP = 33.3e-6;   # 耦合长度
+
+
+# 模式参数
+Smode = TE_TM;
+# older version
+# TM0-TM0-TM0
+# width = 500e-9;   # 主波导宽度
+# middle = 506e-9; # 中间波导宽度
+# gap = 454e-9;		# 耦合间距
+# Nm = 1;				# 桥接波导数目
+# lengthCP = 33e-6;   # 耦合长度
+
+# TM0-TM1-TM0
+# width = 500e-9;   	# 主波导宽度
+# middle = 506e-9; 	# 中间波导宽度
+# gap = 260e-9;		# 耦合间距
+# gapM = 200e-9;
+# Nm = 2;				# 桥接波导数目
+# lengthCP = 33e-6;   # 耦合长度
+
+# 求解器参数
+waveMIN = 1500e-9;
+waveMAX = 1600e-9;
+waCve = 1550e-9;
+DwaveU = 1;
+lengthCPMIN = 20e-6;			   
+lengthCPMAX = 40e-6;            
+DlengthCP = 201;
+# Mesh_level = 3;		 	# 网格等级
+sim_time = 36000e-15;	# 仿真时间
+dt = 0.99;				# 时间步长稳定因子，默认为0.99，若发散，将其改小
+# 选项
+clad_opt = 1;       # 是否加clad
+pt_opt = 1;			# If true , 设置功率，时间监视器 ; 否则 ， 设置端口   
+wave_opt = 0;		# 是否扫描波长 ，  用于  EME   求解器     
+GD_opt = 0;         # 是否计算群时延 ，  用于  EME   求解器
+length_opt = 1;		# 是否扫描长度      ，  用于  EME   求解器
+# profile_opt = 1;	# 是否计算电场轮廓
+Sp_opt = 0;			# 是否计算S参数   ，  用于   FDTD  后处理
+
+# 高阶参数 (根据初始参数自动生成)   
+feval(pathB+'\ini'+'\' + 'TWgQSini' );	
+
+
+
+	

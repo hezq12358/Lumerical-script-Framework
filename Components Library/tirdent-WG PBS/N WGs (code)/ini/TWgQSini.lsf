@@ -1,0 +1,36 @@
+# 高阶参数 (根据初始参数自动生成)
+gapL = gapM + zeros( Nm+1 , 1 );	
+	gapL(1) = gap;	gapL(end) = gap;
+lengthDEV = lengthCP;				# 器件长度
+if (gds_opt==1)
+	{# 导入版图时，强制使用 FDTD3 求解器
+	solver_opt = 3;
+	}
+widthDEV = 2*width + sum(gapL) + Nm*middle;
+feval(pathB+'\ini'+'\' + 'TWgPort' );
+xmin = port1X - lengthE;				# 最左边
+xmax = port2X + lengthE;	# 最右边
+ymin = port1Y - width/2 - TMD*marg;		# 最下面
+ymax = port1Y - width/2 + widthDEV + TMD*marg; # 最上面
+lengthTOTAL = xmax - xmin; 	# 器件总长度( 带尾巴 )
+widthB = widthDEV + 2*widthE;		# 衬底宽度
+Dwave = floor((waveMAX-waveMIN)*DwaveU*G)+1;		# 波长采样点数
+waveA = linspace(waveMIN,waveMAX,Dwave); 
+boundaryY = widthDEV + 2*TMD*marg;	# 仿真区域Y边缘参数，若FDTD发散，请加大此边界
+boundaryZ = thick + 2*marg;			# 仿真区域Z边缘参数
+# 网格参数 -- 器件的特征尺寸
+pitchX = 100e-9;
+pitchY = width;		
+pitchZ = thick;
+
+
+
+
+
+
+
+
+			 
+
+
+

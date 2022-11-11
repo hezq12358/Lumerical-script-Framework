@@ -1,0 +1,11 @@
+# 端口   of   对称   2*2 器件
+#       4  ----------------------  3
+#       1  ----------------------  2
+port1X = ExcitP;						# input
+port1Y = ExcitQ;
+port2X = port1X + lengthDEV;	    # bar 
+port2Y = port1Y;
+port3X = port1X + lengthDEV;		# cross 
+port3Y = port1Y + widthDEV - width;
+port4X = port1X;		# add 
+port4Y = port3Y;

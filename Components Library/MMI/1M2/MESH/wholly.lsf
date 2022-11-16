@@ -1,0 +1,31 @@
+# 定义一整块网格
+NTly = 'wholly';
+select(solver);
+	x = get('x min');	xB = get('x max');
+	y = get('y'); 		yB = get('y span');
+# 直接定义网格尺寸
+wovZ = 5;
+mx = 50e-9;
+my = 50e-9;
+mz = pitchZ / wovZ;
+if ( add_opt == 0 )
+{
+addmesh; 
+	set("name",NTly);
+	set('x min', x);set('x max' , xB);
+	set('y', y);	set('y span',yB); 		
+	set('z', 0);	set('z span',pitchZ + 2*mz);
+	set('dx',mx); 
+	set('dy',my);
+	set('dz',mz);
+}
+else
+{
+select(NTly); 
+	set('x min', x);set('x max' , xB);
+	set('y', y);	set('y span',yB); 		
+	set('z', 0);	set('z span',pitchZ + 2*mz);
+	set('dx',mx); 
+	set('dy',my);
+	set('dz',mz);
+}

@@ -1,0 +1,37 @@
+# 定向耦合器 建模
+if ( add_opt == 0 )
+	{
+feval(pathB+'\ini'+'\' + 'Y_Qini' );
+feval(pathB+'\ini'+'\' + 'Y_Qrep' );			
+feval(mater+'\'+ 'materialsQini' );
+if (gds_opt==1)
+	{
+	feval(pathB+'\LV'+'\' + 'LVY_GDS' );
+	}
+else
+	{
+	feval(pathB+'\LV'+'\' + 'Y_LV' );
+	}												
+feval(pathB+'\varFDTD'+'\' + 'varFDTD_set' );
+feval(pathB+'\MESH'+'\' + 'Y_MESH' ); 		
+	}
+else
+	{
+feval(pathB+'\ini'+'\' + 'Y_QSini' );		
+switchtolayout; 
+if (gds_opt==1)
+	{
+	feval(pathB+'\LV'+'\' + 'LVY_GDS' );
+	}
+else
+	{
+	feval(pathB+'\LV'+'\' + 'Y_LV' );
+	} 												
+feval(pathB+'\varFDTD'+'\' + 'varFDTD_set' );
+feval(pathB+'\MESH'+'\' + 'Y_MESH' ); 	
+	}
+	
+	
+	
+	
+	

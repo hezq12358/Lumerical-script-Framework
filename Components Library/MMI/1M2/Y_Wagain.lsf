@@ -1,0 +1,29 @@
+# Lumerical仿真 ADC
+# clear;      closeall;
+# 必须打开一个已经建模好的.lms文件  ，或在 (DEV)Wdemo.lsf 之后运行
+###############################################
+pathB = filedirectory(currentscriptname);
+feval(pathB+'\' + 'ini__');
+feval(pathB+'\ini\' + 'Y_Qini');
+feval(pathB+'\ini\' + 'Y_Qrep');
+gds_opt = 0;
+add_opt = 1;
+solver_opt = 2;
+Mtype = 'Si';
+#width = 500e-9;
+#JR = 2.4e-6;
+#widthMM = 2.2e-6;
+gap = 200e-9;
+
+feval(pathB+'\' + 'Y_Model');
+			
+file = DEV+' '+num2str(JR*G) + ' gap_' + num2str(gap*G)+'_nm';
+feval(pathB+'\ID'+'\' + 'Y_ID' );
+# save(pathB+demon+pfolderP+'\' + file );	# 保存器件的原始建模文件
+
+## #########################
+feval(pathB+'\brick'+'\' + 'Y_Run' );
+  
+	
+	
+	

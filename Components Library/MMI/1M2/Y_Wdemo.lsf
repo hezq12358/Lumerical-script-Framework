@@ -1,0 +1,16 @@
+# Lumerical 仿真 波导交叉
+clear;closeall;
+###############################################
+pathB = filedirectory(currentscriptname);
+feval(pathB+'\' + 'ini__' );
+newproject;
+add_opt = 0;
+feval(pathB+'\' + 'Y_Model' );
+			
+file = DEV+' '+num2str(JR*G) + ' gap_' + num2str(gap*G)+'_nm';
+# file = fileC;
+feval(pathB+'\ID'+'\' + 'Y_ID' );
+save(pathB+demon+pfolderP+'\' + file );	# 保存器件的原始建模文件	
+
+ ##执行仿真			
+# feval(pathB+'\brick'+'\' + 'Y_Run' );

@@ -1,0 +1,42 @@
+# 高阶参数 (根据初始参数自动生成)
+widthDEV = widthMM;
+widthTAP = (widthMM-gap)/2;
+if ( (widthTAP-width)*G <=1 )
+	{
+	JRada = 0;
+	}
+lengthDEV = JR+lengthMM + JRada;		# 器件长度
+feval(pathB+'\ini'+'\' + 'Y_Port' );
+
+# LV 参数
+xmin = port1X - lengthE;   # 最左边
+xmax = port2X + lengthE;	# 最右边
+lengthTOTAL = xmax - xmin; 			# 器件总长度( Device+两侧的直波导 )
+widthB = widthDEV + 2*widthE;		# 衬底宽度
+
+# solver 参数
+Dwave = floor((waveMAX-waveMIN)*DwaveU*G)+1;		# 波长采样点数
+boundYC = port1Y; 
+boundaryY = widthDEV + 2*TMD*marg;		# 仿真区域Y边缘参数，若FDTD发散，请加大此边界
+boundaryZ = thick + 2*marg;			# 仿真区域Z边缘参数
+
+# 网格参数 -- 器件的特征尺寸
+pitchX = 100e-9;
+pitchY = width;		
+pitchZ = thick;
+
+
+waveA = linspace(waveMIN,waveMAX,Dwave);
+lengthMMA = linspace(lengthMMMIN,lengthMMMAX,DlengthMM);
+
+
+
+
+
+
+
+
+			 
+
+
+

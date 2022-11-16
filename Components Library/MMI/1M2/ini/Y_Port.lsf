@@ -1,0 +1,12 @@
+# 端口
+#                         ------------------------ 
+#                     --                                   ---------- port3
+#  port1 ----- 
+#                    --                                    ----------  port2
+#                        ------------------------- 
+port1X = ExcitP;					# 输入端
+port1Y = ExcitQ;
+port2X = ExcitP+lengthDEV;	     	# 直通端
+port2Y = port1Y-(gap+widthTAP)/2;
+port3X = ExcitP+lengthDEV;	      	# 交叉端
+port3Y = port1Y+(gap+widthTAP)/2;

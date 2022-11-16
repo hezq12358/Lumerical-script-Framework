@@ -1,0 +1,62 @@
+# DEV参数
+JRada = 10e-6;			 # 尾端的 taper 长度	
+Mtype = 'Si';
+if (Mtype == 'Si')
+{
+    thick = 220e-9;
+    width = 500e-9;  
+	core = material_Si;
+	widthMM = 1200e-9;
+	JR = 800e-9;		 # taper 长度  ， 非绝热
+	lengthMM = 2e-6;     # TE
+	lengthMMMIN = 0e-6;	  		   
+	lengthMMMAX = 4e-6;
+	fileC = 'swg_cross_cband_te';
+	filename = 'D:\codes\specific language\lumerical\simulation note\Si-Si3N4  WGX\waveguide crossing\gds\' + fileC + '.gds'; 
+	cellname = fileC;     # 弯曲定向耦合器
+	ltype = '171:0';
+}
+else if (Mtype == 'SiN')
+{
+    thick = 400e-9;
+    width = 1000e-9;    
+	core = material_SiN;
+	widthMM = 3000e-9;
+	JR = 3500e-9;			 # taper 长度  ， 非绝热
+	lengthMM = 21.8e-6;     # TE
+	lengthMMMIN = 4e-6;	  		   
+	lengthMMMAX = 5e-6;
+	fileC = 'nwg_cross_cband_te';
+	filename = 'D:\codes\specific language\lumerical\simulation note\Si-Si3N4  WGX\waveguide crossing\gds\' + fileC + '.gds'; 
+	cellname = fileC;     # 弯曲定向耦合器	
+	ltype = '174:0';
+}
+gap = 200e-9;
+
+# 求解器参数
+waveMIN = 1500e-9;
+waveMAX = 1600e-9;
+waCve = 1550e-9;
+DwaveU = 1;				 # 每单位波长采样点数
+DlengthMM = 101;  
+Mesh_level = 3;		 	# 网格等级
+sim_time = 36000e-15;	# 仿真时间
+dt = 0.99;				# 时间步长稳定因子，默认为0.99，若发散，将其改小
+# 选项
+clad_opt = 1;       # 是否加clad
+pt_opt = 1;				# 弃用--If true , 设置功率，时间监视器 ; 否则 ， 设置端口   
+profile_opt = 1;	# 是否计算电场轮廓
+GD_opt = 0;         # 是否计算群时延
+wave_opt = 0;		# 是否扫描波长      ，  用于  EME   求解器
+length_opt = 1;		# 是否扫描长度      ，  用于  EME   求解器
+Sp_opt = 1;			# 是否计算S参数   ，  用于   FDTD  后处理
+Smode = TE;			# 选择模式
+solver_opt = 2;		# 采用何种求解器
+					# 1	var-FDTD
+					# 2	EME
+					# 3	3D-FDTD
+gds_opt = 0;
+# 高阶参数 (根据初始参数自动生成)    
+feval(pathB+'\ini'+'\' + 'Y_QSini');
+
+		

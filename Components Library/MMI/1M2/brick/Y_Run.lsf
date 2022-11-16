@@ -1,0 +1,33 @@
+
+	run;
+if( solver_opt == 2 )
+	{	# EME
+	if ( wave_opt>0 )
+		{# 是否扫描波长，2020新功能 ，忽略了波导色散，仿真耦合器件不准
+		setemeanalysis("wavelength sweep",1);
+		setemeanalysis("start wavelength",waveMIN);
+		setemeanalysis("stop wavelength",waveMAX);
+		setemeanalysis("number of wavelength points",Dwave);
+		setemeanalysis("calculate group delays",GD_opt);
+		emesweep("wavelength sweep");
+		}
+	else 
+	if (length_opt>0)
+		{# 长度扫描
+		setemeanalysis('parameter','group span 3');
+		emesweep('propagation sweep');
+		}
+	feval(pathB+lowerical+'\'+ 'hitEME' );	# 提取 EME S参数		
+	}
+else
+	{ # varFDTD or FDTD
+	if ( Sp_opt==0 )
+		{
+		feval(pathB+lowerical+'\'+ 'hitFDTD' );	# 提取 FDTD 频域监视器参数		
+		}
+	else
+		{
+		feval(pathB+lowerical+'\'+ 'S2port' );	# 提取  mode expansion 监视器  S参数	
+		}
+	}
+matlabsave(pathB+demon+pfolderExport+'\' + file );

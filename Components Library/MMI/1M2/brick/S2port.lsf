@@ -1,0 +1,30 @@
+# 从模式端口提取  S参数 
+Port1 = getresult('expansion','expansion for Port1expa');
+po1 = Port1.T_net;   # laser input
+po0 = Port1.T_backward;   # laser reflection
+
+# response of bar
+Port2 = getresult('expansion','expansion for Port2expa');
+	po2 = Port2.T_forward;	# laser output ---- bar
+plot(waveA*G,10*log10(abs(po2(:,1)/po1(:,1))),10*log10(abs(po2(:,2)/po1(:,1))));
+
+# response of cross
+Port3 = getresult('expansion_','expansion for Port3expa');
+	po3 = Port3.T_forward;   # laser output ---- bar
+plot(waveA*G,10*log10(abs(po3(:,1)/po1(:,1))),10*log10(abs(po3(:,2)/po1(:,1))));
+
+# response of refection
+plot(waveA*G,10*log10(abs(po0(:,1)/po1(:,1))),10*log10(abs(po0(:,2)/po1(:,1))));
+
+
+
+
+# plot(linspace(waveMIN,waveMAX,Dwave)*G,10*log10(po1));
+    
+
+
+
+
+
+
+

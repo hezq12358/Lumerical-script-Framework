@@ -1,0 +1,98 @@
+mmi = 'WG_MMI';
+WG1 = 'WG_port1';
+WG2 = 'WG_port2';
+WG3 = 'WG_port3';
+# power splitter
+if (clad_opt == 1)
+	{
+	zmax = clad;
+	}
+else
+	{
+	zmax = -thick/2;
+	}
+if (add_opt==0)
+{
+addrect;   # SiO2层
+	set('name','oxide');
+	set('x min',xmin);	    	set('x max',xmax);
+	set('y',port1Y);  			set('y span',widthB);
+	set('z min',-(thickB+thick/2));    	set('z max',zmax);
+	set('material',material_BOX);
+addpoly;
+	set('name' , mmi ); 
+	pv = [# 顶点集，用于绘制taper
+		 0  ,  width/2;
+		 JR ,  widthMM/2;
+		 JR+lengthMM, widthMM/2;
+		 lengthDEV, port3Y+width/2;
+		 lengthDEV, port3Y-width/2;
+		 JR+lengthMM, gap/2;
+		 JR+lengthMM, -gap/2;
+		 lengthDEV, port2Y+width/2;
+		 lengthDEV, port2Y-width/2;
+		 JR+lengthMM, -widthMM/2;
+		 JR ,  -widthMM/2;
+		 0  ,  -width/2		 ];
+	set("vertices" , pv);
+	set('x' , port1X);	set('y' , port1Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);	set("z span" , thick);
+	set('material',core);
+addrect;   # 端口波导
+	set('x min',xmin);	        set('x max',port1X);
+	set('y',port1Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',core);
+	set('name',WG1);
+select(WG1);
+copy( lengthDEV+lengthE , -port1Y+port2Y );
+	set('name',WG2);
+select(WG1);
+copy( lengthDEV+lengthE , -port1Y+port3Y );
+	set('name',WG3);
+selectpartial('WG');
+addtogroup(DEV);
+}
+else
+{
+select('oxide');
+	set('x min',xmin);	    	set('x max',xmax);
+	set('y',port1Y);  			set('y span',widthB);
+	set('z min',-thickB-thick/2);    	set('z max',zmax);
+	set('material',material_BOX);	
+select(DEV);
+	delete;
+addpoly;
+	set('name' , mmi ); 
+	pv = [# 顶点集，用于绘制taper
+		 0  ,  width/2;
+		 JR ,  widthMM/2;
+		 JR+lengthMM, widthMM/2;
+		 lengthDEV, port3Y+width/2;
+		 lengthDEV, port3Y-width/2;
+		 JR+lengthMM, gap/2;
+		 JR+lengthMM, -gap/2;
+		 lengthDEV, port2Y+width/2;
+		 lengthDEV, port2Y-width/2;
+		 JR+lengthMM, -widthMM/2;
+		 JR ,  -widthMM/2;
+		 0  ,  -width/2		 ];
+	set("vertices" , pv);
+	set('x' , port1X);	set('y' , port1Y);				# 设置多边形的左上角坐标--偏移量
+	set("z" , 0);	set("z span" , thick);
+	set('material',core);
+addrect;   # 端口波导
+	set('x min',xmin);	        set('x max',port1X);
+	set('y',port1Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',core);
+	set('name',WG1);
+select(WG1);
+copy( lengthDEV+lengthE , -port1Y+port2Y );
+	set('name',WG2);
+select(WG1);
+copy( lengthDEV+lengthE , -port1Y+port3Y );
+	set('name',WG3);
+selectpartial('WG');
+addtogroup(DEV);
+}

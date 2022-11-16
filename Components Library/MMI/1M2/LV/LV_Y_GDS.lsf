@@ -1,0 +1,104 @@
+
+# 导入外部的 .gds 
+if (clad_opt == 1)
+	{# 有包层
+	zmax = clad;
+	}
+else
+	{# 无包层
+	zmax = -thick/2;
+	}
+
+
+# 导入之后 lumericalSB 把它称作
+GDSname = '::model::GDS_LAYER_' + ltype;	
+minvxWAFER = 1e9;	maxvxWAFER = -1e9;
+minvyWAFER = 1e9;	maxvyWAFER = -1e9;  # design extent
+
+
+# 波导导入  .gds
+n = gdsimport( filename, cellname, ltype, core , -thick/2, thick/2 );
+# n = gdsimport("filename", "cellname", layer, "material", zmin, zmax);
+if ( n==0 ) 
+	{ 
+	delete; 
+	} 
+else 
+	{
+	groupscope( GDSname );
+	# set("script","");
+	selectall;
+		set('material', core);
+		set('z',0);		set('z span',thick); 	 
+		selectpartial("poly");
+	minvx=1e9; 		maxvx=-1e9; 
+	minvy=1e9;		maxvy=-1e9;
+	for ( k = 1:getnumber ) 
+		{	# 找出这个GDS层  的  边界
+		v = get("vertices",k);	  # a = size(v);
+		minvx = min ( [ minvx,min(v(:,1)) ] );
+		maxvx = max ( [ maxvx,max(v(:,1)) ] );
+        minvy = min ( [ minvy,min(v(:,2)) ] );
+		maxvy = max ( [ maxvy,max(v(:,2)) ] );
+		# minvx = min ( [ minvx,min(v(1:a(1),1)) ] );
+        # minvy = min ( [ minvy,min(v(1:a(1),2)) ] );
+		# maxvx = max ( [ maxvx,max(v(1:a(1),1)) ] );
+		# maxvy = max ( [ maxvy,max(v(1:a(1),2)) ] );
+		}
+	minvxWAFER = min ( [minvx, minvxWAFER] );
+	minvyWAFER = min ( [minvy, minvyWAFER] );
+	maxvxWAFER = max ( [maxvx, maxvxWAFER] );
+	maxvyWAFER = max ( [maxvy, maxvyWAFER] );
+	groupscope("::model");
+	}
+	
+
+port1X = minvxWAFER;
+port1Y = (minvyWAFER+maxvyWAFER)/2;
+port2X = maxvxWAFER;
+port2Y = port1Y;
+port3X = (port1X+port2X)/2;
+port3Y = maxvyWAFER;
+port4X = port3X;
+port4Y = minvyWAFER;
+
+# 仿真区域Y边缘参数
+addrect;   # 衬底(埋氧层)   
+	set('override mesh order from material database',1);
+	set('mesh order',3);
+	set('x min',port1X-lengthE);	set('x max',port2X+lengthE);
+	set('y min',port4Y-lengthE);  	set('y max',port3Y+lengthE);
+	set('z min',-thickB-thick/2); 	set('z max',zmax);
+	set('material',material_BOX);
+	set('name','oxide');
+addrect;   
+	set('name','wg1');
+	set('x min',port1X-lengthE);set('x max',port1X);
+	set('y',port1Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',core);
+addrect;   
+	set('name','wg2');
+	set('x min',port2X);		set('x max',port2X+lengthE);
+	set('y',port2Y);			set('y span',width);
+	set('z',0);					set('z span',thick);
+	set('material',core);
+addrect;   
+	set('name','wg3');
+	set('x min',port3X-width/2);	set('x max',port3X+width/2);
+	set('y',port3Y+lengthE/2);		set('y span',lengthE);
+	set('z',0);					set('z span',thick);
+	set('material',core);
+addrect;   
+	set('name','wg4');
+	set('x min',port4X-width/2);	set('x max',port4X+width/2);
+	set('y',port4Y-lengthE/2);		set('y span',lengthE);
+	set('z',0);					set('z span',thick);
+	set('material',core);
+	
+
+
+
+
+
+

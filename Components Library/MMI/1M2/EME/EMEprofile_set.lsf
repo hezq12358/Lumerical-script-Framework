@@ -1,0 +1,63 @@
+select(solver);
+	xB = get('x span');
+	Xmid = Xin + xB/2;
+	Xout = Xin + xB;      
+	yB = get('y span');
+# 轮廓监视器 
+if (add_opt==0)
+{
+addemeprofile;
+	set('name','top-down field');# 俯视图
+	set('monitor type','2D Z-normal');
+	set('x', Xmid );	set('x span', xB );	
+	set('y', boundYC );	set('y span', yB );
+	set('z', 0);
+
+addemeprofile;
+	set('name','input----cross-section field');# 截面图
+	set('monitor type','2D X-normal');
+	set('x', Xin );
+	set('y', boundYC ); 		set('y span',yB );
+	set('z',0); 		set('z span',thick+2*marg);
+	
+addemeprofile;
+	set('name','middle----cross-section field');# 截面图
+	set('monitor type','2D X-normal');
+	set('x', Xin+nail + JR+lengthMM );
+	set('y', boundYC ); 		set('y span',yB );
+	set('z',0); 		set('z span',thick+2*marg);
+	
+addemeprofile;
+	set('name','output----cross-section field');# 截面图
+	set('monitor type','2D X-normal');
+	set('x', Xout );
+	set('y', boundYC );	set('y span',yB );
+	set('z',0); 		set('z span',thick+2*marg);
+}
+else
+{
+select('top-down field');# 俯视图
+	set('monitor type','2D Z-normal');
+	set('x', Xmid );	set('x span', xB );	
+	set('y', boundYC );	set('y span', yB );
+	set('z', 0);
+
+select('input----cross-section field');# 截面图
+	set('monitor type','2D X-normal');
+	set('x', Xin );
+	set('y', boundYC ); 		set('y span',yB );
+	set('z',0); 		set('z span',thick+2*marg);
+	
+select('middle----cross-section field');# 截面图
+	set('monitor type','2D X-normal');
+	set('x', Xin+nail + JR+lengthMM );
+	set('y', boundYC ); 		set('y span',yB );
+	set('z',0); 		set('z span',thick+2*marg);
+	
+select('output----cross-section field');# 截面图
+	set('monitor type','2D X-normal');
+	set('x', Xout );
+	set('y', boundYC );	set('y span',yB );
+	set('z',0); 		set('z span',thick+2*marg);
+}
+

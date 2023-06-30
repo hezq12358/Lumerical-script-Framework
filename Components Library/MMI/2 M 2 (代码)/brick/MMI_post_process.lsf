@@ -1,0 +1,40 @@
+# require 'resfname' as input 
+
+G = 1e9;
+select('FDTD::ports');
+    pts = get('monitor frequency points');
+p1 = getresult('FDTD::ports::port 1', 'expansion for port monitor' ); 
+p2 = getresult('FDTD::ports::port 2', 'expansion for port monitor' );
+p3 = getresult('FDTD::ports::port 3', 'expansion for port monitor' );
+waveA = c / p1.f;
+
+s21 = p2.a / p1.a;
+s31 = p3.a / p1.a;
+po21 = abs(s21)^2;
+po31 = abs(s31)^2;
+ph21 = unwrap(angle(s21))*180/pi;
+ph31 = unwrap(angle(s31))*180/pi;
+po21_db = 10*log10(po21);
+po31_db = 10*log10(po31);
+EL = 10*log10( po21 + po31 );
+po21_31_db = abs(po21_db - po31_db);
+phase_error = mod(ph31-ph21-90, 360 );
+for (k=1:pts) {
+    if ( abs(phase_error(k))>abs(phase_error(k)-360) ) {
+        phase_error(k) = phase_error(k) - 360;   
+    }
+}
+
+plot(waveA*G, po21_db, po31_db );
+plot(waveA*G, EL, 'wavelength(nm)', 'excess loss(dB)' );
+plot(waveA*G, po21_31_db, 'wavelength(nm)', 'imblance(dB)' );
+plot(waveA*G, phase_error, 'wavelength(nm)', 'phase error' );
+
+# save file as .mat format 
+matlabsave( resfname, waveA, po21_db, po31_db, EL, po21_31_db, phase_error, s21, s31  );
+
+
+
+
+
+
